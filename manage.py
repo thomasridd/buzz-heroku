@@ -5,11 +5,11 @@ from flask_script import Manager, Server
 
 
 from application.factory import create_app
-from application.config import Config
+from application.config import Config, DevConfig
 
 env = os.environ.get('ENVIRONMENT', 'DEV')
 
-app = create_app(Config)
+app = create_app(DevConfig)
 
 manager = Manager(app)
 manager.add_command("server", Server())

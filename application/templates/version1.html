@@ -29,7 +29,10 @@
     </body>
 </html>
 
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <script>
     var selected_animal = "";
     var animals = ['antelope', 'bear', 'bee', 'camel', 'dog', 'dolphin', 'dragonfly', 'duck', 'elephant', 'fish', 'fox', 'frog', 'gnat', 'hawk', 'horse', 'koala', 'pig', 'pigeon', 'sheep', 'stag', 'swan', 'walrus', 'wasp', 'zebra'];
@@ -42,10 +45,25 @@
     }
 
     function clickAnimalButton(animal) {
-        selected_animal = animal
-        deselectAnimals()
-        selectAnimal(selected_animal)
-        activeConfirmButton()
+        selected_animal = animal;
+        deselectAnimals();
+        selectAnimal(selected_animal);
+        activeConfirmButton();
+
+        sendClickToServer(animal);
+    }
+
+    function sendClickToServer(animal) {
+        var registerAnimalUrl = "{{ url_for('version_1.register_click', animal='ANIMAL_TO_REGISTER') }}";
+        var url = registerAnimalUrl.replace(/ANIMAL_TO_REGISTER/, animal);
+
+        console.log(url);
+        $.ajax({
+            type: "POST",
+            url: url,
+            context: document.body,
+            success: function(){}
+        });
     }
 
     function animalImage(animal) {
@@ -54,7 +72,6 @@
 
     function deselectAnimals() {
         for(i=0; i<animals.length; i++) {
-            console.log(document.getElementById(animals[i]))
             document.getElementById(animals[i]).classList.remove("animal-button-selected");
         }
     }

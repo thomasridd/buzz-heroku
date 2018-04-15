@@ -19,3 +19,13 @@ class Config:
     '''
     # GITHUB_ACCESS_TOKEN = os.environ['GITHUB_ACCESS_TOKEN']
     CONFIG_VAR = "config"
+    BASE_DIRECTORY = dirname(dirname(os.path.abspath(__file__)))
+
+
+class DevConfig(Config):
+    DEBUG = None
+    PUSH_ENABLED = False
+    FETCH_ENABLED = False
+    ENVIRONMENT = 'DEV'
+    SESSION_COOKIE_SECURE = False
+    SERVER_NAME = 'localhost:5000'
