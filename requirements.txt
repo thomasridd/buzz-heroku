@@ -7,3 +7,4 @@ Werkzeug==0.14.1
 click==6.7
 python-dotenv==0.8.2
 Flask-Script==2.0.6
+gspread==3.0.0
