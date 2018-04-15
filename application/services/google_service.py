@@ -25,12 +25,15 @@ class GoogleService:
         self.worksheet.update_acell('A1', animal)
 
     def get_row_count(self):
-        return self.worksheet.row_count()
+        return self.worksheet.row_count
 
     def add_row(self, cells):
-        row = self.get_row_count() + 1
-        for col, val in cells:
-            self.worksheet.update_cell(row, col, val)
+        row = self.next_available_row(self.worksheet)
+        for col, val in enumerate(cells):
+            self.worksheet.update_cell(row, col + 1, val)
 
+    def next_available_row(self, worksheet):
+        str_list = worksheet.col_values(1)  # fastest
+        return len(str_list)+1
 
 google_service = GoogleService()
