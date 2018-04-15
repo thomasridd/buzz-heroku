@@ -1,2 +1,2 @@
-web: gunicorn buzz-heroku:app --log-file=-
+web: gunicorn application.wsgi:app --log-file=-
 start: python buzz-heroku.py
