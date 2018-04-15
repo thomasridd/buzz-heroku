@@ -1,0 +1,14 @@
+{
+  "name": "buzz-buzz-buzz",
+  "version": "1.0.0",
+  "description": "Landing page",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass application/src/sass/main.scss application/static/css/style.css -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.7.2"
+  }
+}

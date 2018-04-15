@@ -1,0 +1,37 @@
+.animal-button {
+	height: $icon-width;
+	width: $icon-width; 
+    object-fit: cover;
+    background-color: #fff;
+    border-width: 1px;
+    border-radius: 1rem;
+    border-color: #fff;
+	padding: 1rem;
+
+	&__image {
+		width: 100%;
+	}
+
+	&-selected {
+		border: solid .5rem $color-confirm;
+		transform: translateY(-.1rem);
+		box-shadow: 0 1rem 2rem rgba($color-black,.2);
+	}
+
+	&:hover {
+		transform: translateY(-.2rem);
+		box-shadow: 0 1rem 2rem rgba($color-black,.2);
+
+		&::after {
+			transform: scaleX(1.4) scaleY(1.6);
+			opacity: 0;
+		}
+	}
+
+	&:active,
+	&:focus {
+		outline: none;
+		transform: translateY(-.1rem);
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+	}
+}

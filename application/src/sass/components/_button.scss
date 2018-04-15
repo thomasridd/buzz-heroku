@@ -1,0 +1,105 @@
+.buzz-btn {
+	&,
+	&:link,
+	&:visited {
+		background-color: $color-grey-dark-3;
+		color: $color-white;
+		text-transform: uppercase;
+		text-decoration: none;
+		padding: .75rem 4rem;
+		display: inline-block;
+		border-radius: 1rem;
+		transition: all .2s;
+		position: relative;
+		font-size: 1.6rem;
+		margin-right: 1.5rem;
+		border: none;
+		cursor: pointer;
+	}
+
+	&-disabled {
+		background-color: $color-grey-dark-2;
+		pointer-events: none;
+   		cursor: default;
+	}
+
+	&:hover {
+		transform: translateY(-.2rem);
+		background-color: $color-grey-dark;
+
+		&::after {
+			transform: scaleX(1.4) scaleY(1.6);
+			opacity: 0;
+		}
+	}
+
+	&:active,
+	&:focus {
+		outline: none;
+		transform: translateY(-.1rem);
+		background-color: $color-grey-dark-3;
+	}
+
+	&::after {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		width: 100%;
+		border-radius: 10rem;
+		position: absolute;
+		top:0;
+		left:0;
+		z-index: -1;
+		transition: all .4s;
+	}
+
+	&-warning {
+		&,
+		&:link,
+		&:visited {
+			background-color: $color-warning;
+		}
+
+		&:disabled {
+			background-color: $color-grey-dark-3;
+		}
+
+		&:hover {
+			background-color: $color-warning-light;
+		}
+
+		&:active,
+		&:focus {
+			background-color: $color-warning;
+		}
+
+		&-disabled {
+			background-color: $color-grey-dark-2;
+			pointer-events: none;
+	   		cursor: default;
+		}
+	}
+
+	&-confirm {
+		&,
+		&:link,
+		&:visited {
+			background-color: $color-confirm;
+		}
+
+		&:hover {
+			background-color: $color-confirm-light;
+		}
+
+		&:active,
+		&:focus {
+			background-color: $color-confirm;
+		}
+		
+		&-disabled {
+			background-color: $color-grey-dark-2;
+			pointer-events: none;
+	   		cursor: default;
+		}
+	}
+}
