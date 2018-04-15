@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 # below will break. For CI env variables are set in circle.yml
 # In Heroku, well... they are set in Heroku.
 
-from application.utils import get_bool
 
 p = Path(dirname(__file__))
 dotenv_path = join(str(p.parent), '.env')
@@ -22,3 +21,4 @@ class Config:
     Right now we don't need any of this but let's keep it in the bag
     '''
     # GITHUB_ACCESS_TOKEN = os.environ['GITHUB_ACCESS_TOKEN']
+    CONFIG_VAR = "config"
