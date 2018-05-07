@@ -29,11 +29,13 @@ class Config:
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_x509_cert_url": os.environ['AUTH_CERT_URL']
     }
+    SECRET_KEY = os.environ['SECRET_KEY']
+    WTF_CSRF_ENABLED = True
 
 
 
 class DevConfig(Config):
-    DEBUG = None
+    DEBUG = True
     PUSH_ENABLED = False
     FETCH_ENABLED = False
     ENVIRONMENT = 'DEV'

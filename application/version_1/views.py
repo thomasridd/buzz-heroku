@@ -8,7 +8,7 @@ def index():
     return render_template('version1.html')
 
 
-@version_1.route('/register_click/<animal>/', methods=['POST'])
+@version_1.route('/register-click/<animal>/', methods=['POST'])
 def register_click(animal):
     print(animal)
     google_service.add_row(['list menu', 'select', animal])
