@@ -1,0 +1,102 @@
+{% from "v2/task_icons/forms.html" import render_icon_list, render_yes_no_footer %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+    <title>Litter bug</title>
+</head>
+<body>
+<header>
+    <div class="header-bar heading-tertiary">
+        Litter bug
+    </div>
+</header>
+<main>
+    <div class="section-litter-bug">
+        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
+
+            <div class="icon-task">
+                <div class="row">
+                    {{ form.csrf_token }}
+                    {{ form.participant }}
+                    {{ form.task_1_complete }}
+                    {{ form.task_2_complete }}
+                    {{ form.task_3_complete }}
+                    {{ render_icon_list(form.icons, rows, cols) }}
+                </div>
+                <div class="row icon-task__bottom-spacer">&nbsp;</div>
+            </div>
+            {{ render_yes_no_footer() }}
+        </form>
+    </div>
+
+</main>
+</body>
+</html>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    var selected_animal = "";
+
+    function clickAnimalButton(animal) {
+        selected_animal = animal;
+        deselectAnimals();
+        selectAnimal(selected_animal);
+        activateConfirmButton();
+
+        sendClickToServer(animal);
+    }
+
+    function sendClickToServer(animal) {
+        {#var registerAnimalUrl = "{{ url_for('version_1.register_click', animal='ANIMAL_TO_REGISTER') }}";#}
+        {#var url = registerAnimalUrl.replace(/ANIMAL_TO_REGISTER/, animal);#}
+        {##}
+        {#        console.log(url);#}
+        {#        $.ajax({#}
+        {#            type: "POST",#}
+        {#            url: url,#}
+        {#            context: document.body,#}
+        {#            success: function(){}#}
+        {#        });#}
+    }
+
+    function animalImage(animal) {
+        return "{{ url_for('static', filename='images/animals/') }}" + animal + ".png"
+    }
+
+    function deselectAnimals() {
+        var animals = document.getElementsByClassName("animal-button");
+        for (var i in animals) {
+            var animal = animals[i];
+            if (animal && animal.classList) {
+                animal.classList.remove("animal-button-selected");
+            }
+        }
+    }
+
+    function selectAnimal(animal) {
+        document.getElementById(animal).classList.add("animal-button-selected");
+    }
+
+    function activateConfirmButton() {
+        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+    });
+
+
+</script>
