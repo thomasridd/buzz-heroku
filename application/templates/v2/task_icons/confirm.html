@@ -32,7 +32,7 @@
                     {{ form.task_2_complete }}
                     {{ form.task_3_complete }}
                 </div>
-                {% set image_url = url_for('static', filename="images/animals/" + item_choice + ".png") -%}
+                {% set image_url = url_for('static', filename="images/animals/" + item_choice.lower() + ".png") -%}
                 <div class="animal-confirm"><img class="animal-confirm__image" src="{{ image_url }}" /></div>
             </div>
             {{ render_yes_no_footer() }}

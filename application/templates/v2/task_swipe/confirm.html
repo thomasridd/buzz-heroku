@@ -1,3 +1,5 @@
+{% from "v2/task_icons/forms.html" import render_yes_no_footer %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,27 +21,32 @@
         </div>
     </header>
     <main>
-        <div class="litter-bug">
-            <div class="task swipe-task">
+    <div class="section-litter-bug">
+        <form id="icon-menu-form" action="{{ url_for('swipe.confirm') }}" method='post' class="icon-task__form">
+
+            <div class="icon-confirm">
                 <div class="row">
-                    <form id="task__form--confirm" action="{{ url_for('swipe.confirm') }}" method='post' class="task__form task__form--confirm">
-                        {{ form.csrf_token }}
-                        {{ form.participant }}
-                        {{ form.task_1_complete }}
-                        {{ form.task_2_complete }}
-                        {{ form.task_3_complete }}
-                        {{ form.choice }}
-
-                        <div>Please confirm your choice of {{ item_choice }}</div>
-                        <div class="task__form__actions">
-                            {{ form.yes }}
-                            {{ form.no }}
-                        </div>
-                    </form>
+                    {{ form.csrf_token }}
+                    {{ form.participant }}
+                    {{ form.task_1_complete }}
+                    {{ form.task_2_complete }}
+                    {{ form.task_3_complete }}
                 </div>
+                {% set image_url = url_for('static', filename="images/animals/" + item_choice.lower() + ".png") -%}
+                <div class="animal-confirm"><img class="animal-confirm__image" src="{{ image_url }}" /></div>
             </div>
+            {{ render_yes_no_footer() }}
+        </form>
+    </div>
 
-        </div>
     </main>
 </body>
 </html>
+
+<script>
+    function activateConfirmButton() {
+        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+    }
+    activateConfirmButton();
+</script>
+
