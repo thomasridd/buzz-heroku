@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+    <title>Litter bug</title>
+</head>
+<body>
+    <header>
+        <div class="header-bar heading-tertiary">
+            Litter bug
+        </div>
+    </header>
+    <main>
+        <div class="litter-bug">
+            <div class="task swipe-task">
+                <div class="row">
+                    <form id="swipe-task__form" action="{{ url_for('swipe.swipe_menu') }}" method='post' class="task__form task__form--swipe">
+                        {{ form.csrf_token }}
+                        {{ form.participant }}
+                        {{ form.task_1_complete }}
+                        {{ form.task_2_complete }}
+                        {{ form.task_3_complete }}
+
+                        {{ form.icons }}
+
+                        <div class="task__form__actions">
+                            {{ form.yes }}
+                            {{ form.no }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

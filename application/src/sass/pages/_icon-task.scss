@@ -1,0 +1,19 @@
+.icon-task {
+	position: absolute;
+	width: 50%;
+	min-width: 30rem;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 0;
+	margin:0;
+}
+
+.icon-task__form {
+	border-width: 4px;
+	width: 100%;
+	margin: 0;
+}
+
+.icon-task__bottom-spacer {
+	height: 8rem;
+}

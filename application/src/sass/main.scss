@@ -8,20 +8,15 @@
 @import "base/utilities";
 
 @import "components/animal-button";  
-@import "components/button"; 
+@import "components/animal-confirm";
+@import "components/button";
+@import "components/yes-no";
 
 @import "layout/footer"; 
 @import "layout/header";
 @import "layout/grid";
 
-   
-@import "pages/home"; 
-@import "pages/list-page"; 
-
-
-
-
-
-
-
-
+@import "pages/home";
+@import "pages/list-page";
+@import "pages/icon-task";
+@import "pages/swipe-task";

@@ -1,0 +1,16 @@
+.animal-confirm {
+    position: absolute;
+	height: $icon-extra-large-width;
+	width: $icon-extra-large-width;
+    object-fit: cover;
+    background-color: #fff;
+    border-radius: 3rem;
+    border: 1rem solid $color-confirm;
+	padding: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+  &__image {
+    width: 100%;
+  }
+}

@@ -3,6 +3,7 @@ from flask import render_template
 from application.version_1 import version_1
 from application.services.google_service import google_service
 
+
 @version_1.route('/')
 def index():
     return render_template('version1.html')
