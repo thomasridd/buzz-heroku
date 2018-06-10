@@ -1,0 +1,69 @@
+{% macro render_confirm_footer() -%}
+    <div class="yes-no">
+        <div class="footer-bar" id="sticky-footer">
+            <div class="row">
+                <div>
+                    <button id="start" name="start" type="submit" value="Start"
+                            class="footer-bar__confirm buzz-btn buzz-btn-confirm buzz-btn-confirm-disabled yes-no__button yes-no-button--confirm">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro render_participant_list(participants) -%}
+
+    <fieldset class="animal-button__fieldset">
+        <div class="container">
+            {% for row in range(0,20) %}
+                <div class="participant-row">
+                        <div>
+                            {% set participant = participants.choices[row] -%}
+
+                            <div class="participant-button" id="{{ participant[0] }}" onclick="clickParticipant('{{ participant[0] }}')">
+                                <label for="icons-{{ row }}">{{ participant[1] }}</label>
+                                <input id="icons-{{ row }}" class="animal-button__radio-button" name="participant" type="radio" value="{{ participant[0] }}">
+                            </div>
+                        </div>
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro render_task_list(tasks, order) -%}
+
+    <fieldset class="animal-button__fieldset">
+        <div class="container">
+            {% for row in order %}
+                <div class="task-row">
+                        <div>
+                            {% set task = tasks.choices[row] -%}
+
+                            <div class="task-button" id="{{ task[0] }}" onclick="clickTask('{{ task[0] }}')">
+                                <label for="tasks-{{ row }}">{{ task[1] }}</label>
+                                <input id="tasks-{{ row }}" class="animal-button__radio-button" name="task" type="radio" value="{{ task[0] }}">
+                            </div>
+                        </div>
+                </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro render_yes_no_footer() -%}
+<div class="yes-no">
+<div class="footer-bar" id="sticky-footer">
+    <div class="row">
+        <div class="col-1-of-2">
+            <button id="yes" name="yes" type="submit" value="yes" class="footer-bar__confirm buzz-btn buzz-btn-confirm buzz-btn-confirm-disabled yes-no__button yes-no-button--yes">Yes</button>
+        </div>
+        <div class="col-1-of-2">
+            <button id="no" name="no" type="submit" value="no"  class="footer-bar__give-up buzz-btn buzz-btn-warning yes-no__button yes-no__button--no">No</button>
+        </div>
+    </div>
+</div>
+</div>
+{%- endmacro %}

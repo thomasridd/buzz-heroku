@@ -1,3 +1,5 @@
+{% from "v2/forms.html" import render_yes_no_footer, render_task_list %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +30,11 @@
                         {{ form.task_1_complete }}
                         {{ form.task_2_complete }}
                         {{ form.task_3_complete }}
+                        {{ form.task_4_complete }}
 
-                        {{ form.task }}
+                        {{ render_task_list(form.task, task_order) }}
 
-                        <button type="submit" value="Submit" class="task__form__submit-btn">Submit</button>
+                        {{ render_yes_no_footer() }}
                     </form>
                 </div>
             </div>
@@ -40,3 +43,36 @@
     </main>
 </body>
 </html>
+
+
+<script>
+    var selected_task = "";
+
+    function clickTask(task) {
+        selected_task = task;
+        console.log('selected', selected_task);
+        deselectTasks();
+        selectTask(selected_task);
+        activateYesButton();
+    }
+
+    function deselectTasks() {
+        var tasks = document.getElementsByClassName("task-button");
+        for (var i in tasks) {
+            var task = tasks[i];
+            if (task && task.classList) {
+                task.classList.remove("task-button-selected");
+            }
+        }
+    }
+
+    function selectTask(task) {
+        var element = document.getElementById(task);
+        element.classList.add("task-button-selected");
+    }
+
+    function activateYesButton() {
+        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+    }
+
+</script>

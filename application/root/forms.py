@@ -3,21 +3,17 @@ from wtforms import RadioField, HiddenField
 
 
 class ParticipantForm(FlaskForm):
-    participant = RadioField('Participant', choices=[('orange', 'Orange participant'),
-                                                     ('red', 'Red participant'),
-                                                     ('white', 'White participant'),
-                                                     ('green', 'Green participant'),
-                                                     ('blue', 'Blue participant'),
-                                                     ('purple', 'Purple participant'),
-                                                     ('yellow', 'Yellow participant'),
-                                                     ('black', 'Black participant')])
+    participant = RadioField('Participant', choices=[(d, 'Participant %d' % d) for d in range(1, 21)])
 
 
 class TaskForm(FlaskForm):
-    task = RadioField('Task', choices=[('task_1', 'Icon Menu'), ('task_2', 'Swipe Menu'), ('task_3', 'Original Menu')])
 
     participant = HiddenField('participant')
     task_1_complete = HiddenField('task_1_complete')
     task_2_complete = HiddenField('task_2_complete')
     task_3_complete = HiddenField('task_3_complete')
+    task_4_complete = HiddenField('task_4_complete')
 
+    choices = [('task_1', 'Icon Menu'), ('task_2', 'Swipe Menu'),
+               ('task_3', 'Original Menu'), ('task_4', 'Alternate Device')]
+    task = RadioField('Task', choices=choices)

@@ -44,6 +44,7 @@ def icon_menu():
                                     task_1_complete=form.data['task_1_complete'],
                                     task_2_complete=form.data['task_2_complete'],
                                     task_3_complete=form.data['task_3_complete'],
+                                    task_4_complete=form.data['task_4_complete'],
                                     choice=form.data['icons'],
                                     images=images))
         else:
@@ -51,7 +52,9 @@ def icon_menu():
                                     participant=form.data['participant'],
                                     task_1_complete=form.data['task_1_complete'],
                                     task_2_complete=form.data['task_2_complete'],
-                                    task_3_complete=form.data['task_3_complete']))
+                                    task_3_complete=form.data['task_3_complete'],
+                                    task_4_complete=form.data['task_4_complete']
+                                    ))
 
 
 @icons_blueprint.route('/confirm', methods=['GET', 'POST'])
@@ -67,13 +70,16 @@ def confirm():
                                     task_1_complete=form.data['task_1_complete'],
                                     task_2_complete=form.data['task_2_complete'],
                                     task_3_complete=form.data['task_3_complete'],
+                                    task_4_complete=form.data['task_4_complete'],
                                     choice=form.data['choice']))
         else:
             return redirect(url_for('icons.icon_menu',
                                     participant=form.data['participant'],
                                     task_1_complete=form.data['task_1_complete'],
                                     task_2_complete=form.data['task_2_complete'],
-                                    task_3_complete=form.data['task_3_complete']))
+                                    task_3_complete=form.data['task_3_complete'],
+                                    task_4_complete=form.data['task_4_complete']
+                                    ))
 
 
 @icons_blueprint.route('/end-task', methods=['GET', 'POST'])
@@ -87,4 +93,6 @@ def end_task():
                                 participant=form.data['participant'],
                                 task_1_complete=True,
                                 task_2_complete=form.data['task_2_complete'],
-                                task_3_complete=form.data['task_3_complete']))
+                                task_3_complete=form.data['task_3_complete'],
+                                task_4_complete=form.data['task_4_complete']
+                                ))

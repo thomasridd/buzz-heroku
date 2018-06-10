@@ -1,3 +1,5 @@
+{% from "v2/forms.html" import render_confirm_footer, render_participant_list %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +26,8 @@
                 <div class="row">
                     <form id="participant-form" action="{{ url_for('root.index') }}" method='post' class="section-participants__form">
                         {{ form.csrf_token }}
-                        {{ form.participant }}
-
-                        <button type="submit" value="Submit" class="task__form__submit-btn">Submit</button>
+                        {{ render_participant_list(form.participant) }}
+                        {{ render_confirm_footer() }}
                     </form>
                 </div>
             </div>
@@ -34,3 +35,35 @@
     </main>
 </body>
 </html>
+
+
+<script>
+    var selected_participant = "";
+
+    function clickParticipant(participant) {
+        selected_participant = participant;
+        deselectParticipants();
+        selectParticipant(selected_participant);
+        activateConfirmButton();
+    }
+
+    function deselectParticipants() {
+        var participants = document.getElementsByClassName("participant-button");
+        for (var i in participants) {
+            var participant = participants[i];
+            if (participant && participant.classList) {
+                participant.classList.remove("participant-button-selected");
+            }
+        }
+    }
+
+    function selectParticipant(participant) {
+        var element = document.getElementById(participant);
+        element.classList.add("participant-button-selected");
+    }
+
+    function activateConfirmButton() {
+        document.getElementById('start').classList.remove('buzz-btn-confirm-disabled')
+    }
+
+</script>
