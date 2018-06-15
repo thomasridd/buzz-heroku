@@ -36,8 +36,9 @@ $gutter-horizontal: 2rem;
 // Font
 $default-font-size: 1.6rem;
 
-$icon-width: 8rem;
-$icon-width-small: 6rem;
+$icon-width: 100%;
+$icon-max-width: 8rem;
+$icon-width-small: 100%;
 $icon-extra-large-width: 21rem;
 
 $participant-width: 21rem;

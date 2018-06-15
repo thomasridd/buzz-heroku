@@ -1,6 +1,7 @@
 .animal-button {
   height: $icon-width;
   width: $icon-width;
+  max-width: $icon-max-width;
   object-fit: cover;
   background-color: #fff;
   border-width: 1px;

@@ -1,4 +1,4 @@
-{% from "v2/task_icons/forms.html" import render_icon_list, render_yes_no_footer %}
+{% from "v2/task_icons/forms.html" import render_yes_no_footer %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/icon-font.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
     <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 
     <title>Litter bug</title>
@@ -21,55 +22,85 @@
     </div>
 </header>
 <main>
-    <div id="section-start" class="section-litter-bug">
+    <div id="section-start" class="section-litter-bug" style="display: none;">
 
     </div>
     <div id="section-play" class="section-litter-bug">
-        <fieldset class="animal-button__fieldset">
-            <div class="container">
-                {% for row in range(rows) %}
-                    <div class="row">
-                        {% for col in range(cols) %}
-                            <div class="col-1-of-4">
-                                {% set icon = icons[col + 4*row] -%}
-                                {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
 
-                                <div class="animal-button" id="{{ icon['item'] }}" onclick="clickAnimalButton('{{ icon['item'] }}')">
-                                    <img src="{{ image_url }}" class="animal-button__image">
+        <div class="container">
+            <fieldset>
+                <div class="section-litter-bug__task-menu">
+                    {% for row in range(rows) %}
+                        <div class="row">
+                            {% for col in range(cols) %}
+                                <div class="col icon-col">
+                                    {% set icon = icons[col + 4*row] -%}
+                                    {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
+
+                                    <div class="animal-button" id="{{ icon['item'] }}"
+                                         onclick="clickAnimalButton('{{ icon['item'] }}')">
+                                        <img src="{{ image_url }}" class="animal-button__image">
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-        </fieldset>
-    </div>
-    <div id="section-confirm" class="section-litter-bug">
-        are you sure you want to have whatever it is
-    </div>
-
-    <div id="section-finalise" class="section-litter-bug">
-        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
-            {{ form.csrf_token }}
-            {{ render_yes_no_footer() }}
-        </form>
-    </div>
-
-    <div class="section-litter-bug" id="main-section" style="display: none">
-        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
-
-            <div class="icon-task">
-                <div class="row">
-                    {{ form.csrf_token }}
-{#                    {{ form.participant }}#}
-{#                    {{ form.task_1_complete }}#}
-{#                    {{ form.task_2_complete }}#}
-{#                    {{ form.task_3_complete }}#}
-{#                    {{ form.task_4_complete }}#}
-{#                    {{ render_icon_list(form.icons, rows, cols) }}#}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="row icon-task__bottom-spacer">&nbsp;</div>
+            </fieldset>
+        </div>
+
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                             <div class="yes-no__button yes-no__button--yes">
+                                 Yes
+                             </div>
+                        </div>
+                        <div class="col">
+                             <div class="yes-no__button yes-no__button--no">
+                                 No
+                             </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div id="section-confirm" class="section-litter-bug" style="display: none">
+        <div class="container">
+
+        </div>
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                             <div class="yes-no__button yes-no__button--yes">
+                                 Yes
+                             </div>
+                        </div>
+                        <div class="col">
+                             <div class="yes-no__button yes-no__button--no">
+                                 No
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-finalise" class="section-litter-bug" style="display: none">
+        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
+            {{ form.participant }}
+            {{ form.task_1_complete }}
+            {{ form.task_2_complete }}
+            {{ form.task_3_complete }}
+            {{ form.task_4_complete }}
+            {{ form.csrf_token }}
             {{ render_yes_no_footer() }}
         </form>
     </div>

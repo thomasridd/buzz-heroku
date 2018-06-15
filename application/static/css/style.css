@@ -88,8 +88,9 @@ body {
   color: transparent; }
 
 .animal-button {
-  height: 8rem;
-  width: 8rem;
+  height: 100%;
+  width: 100%;
+  max-width: 8rem;
   object-fit: cover;
   background-color: #fff;
   border-width: 1px;
@@ -99,8 +100,8 @@ body {
   overflow: hidden; }
   @media screen and (max-width: 320px) {
     .animal-button {
-      width: 6rem;
-      height: 6rem;
+      width: 100%;
+      height: 100%;
       float: none; } }
   .animal-button__image {
     width: 100%; }
@@ -235,8 +236,8 @@ body {
   display: inline-block; }
   @media screen and (max-width: 320px) {
     .participant-button {
-      width: 6rem;
-      height: 6rem;
+      width: 100%;
+      height: 100%;
       float: none; } }
   .participant-button__image {
     width: 100%; }
@@ -291,8 +292,8 @@ body {
   display: inline-block; }
   @media screen and (max-width: 320px) {
     .task-button {
-      width: 6rem;
-      height: 6rem;
+      width: 100%;
+      height: 100%;
       float: none; } }
   .task-button__image {
     width: 100%; }
@@ -345,6 +346,66 @@ body {
   .yes-no__button {
     width: 100%;
     height: 100%; }
+    .yes-no__button, .yes-no__button:link, .yes-no__button:visited {
+      background-color: #333;
+      color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: .75rem 4rem;
+      display: inline-block;
+      border-radius: 1rem;
+      transition: all .2s;
+      position: relative;
+      font-size: 1.6rem;
+      border: none;
+      cursor: pointer; }
+    .yes-no__button-disabled {
+      background-color: #999;
+      pointer-events: none;
+      cursor: default; }
+    .yes-no__button:hover {
+      transform: translateY(-0.2rem);
+      background-color: #777; }
+      .yes-no__button:hover::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0; }
+    .yes-no__button:active, .yes-no__button:focus {
+      outline: none;
+      transform: translateY(-0.1rem);
+      background-color: #333; }
+    .yes-no__button::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 10rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .4s; }
+    .yes-no__button--no, .yes-no__button--no:link, .yes-no__button--no:visited {
+      background-color: #d0404f; }
+    .yes-no__button--no:disabled {
+      background-color: #333; }
+    .yes-no__button--no:hover {
+      background-color: #d74542; }
+    .yes-no__button--no:active, .yes-no__button--no:focus {
+      background-color: #d0404f; }
+    .yes-no__button--no-disabled {
+      background-color: #999;
+      pointer-events: none;
+      cursor: default; }
+    .yes-no__button--yes, .yes-no__button--yes:link, .yes-no__button--yes:visited {
+      background-color: #55c57a; }
+    .yes-no__button--yes:hover {
+      background-color: #7ed56f; }
+    .yes-no__button--yes:active, .yes-no__button--yes:focus {
+      background-color: #55c57a; }
+    .yes-no__button--yes-disabled {
+      background-color: #999;
+      pointer-events: none;
+      cursor: default; }
 
 .footer-bar {
   position: fixed;
@@ -433,7 +494,7 @@ body {
     width: calc((3 * (100% - 3 * 2rem) / 4) + 2 * 2rem); }
 
 body {
-  background-color: #eee; }
+  background-color: #eee !important; }
 
 .buzz-input {
   width: 15rem;
@@ -504,6 +565,13 @@ body {
 
 .icon-task__bottom-spacer {
   height: 8rem; }
+
+.section-litter-bug__task-menu {
+  position: absolute;
+  width: 90%;
+  max-width: 50rem;
+  left: 50%;
+  transform: translateX(-50%); }
 
 .animal-swipe-choice {
   position: absolute;
