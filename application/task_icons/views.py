@@ -1,41 +1,17 @@
 from flask import render_template, request, url_for, redirect
 
+from application.config import Config
 from application.task_icons import icons_blueprint
 from application.task_icons.forms import IconMenuForm, ConfirmForm, EndTaskForm
 
-images = {
-    'Antelope':'images/animals/antelope.png',
-    'Bear':'images/animals/bear.png',
-    'Bee':'images/animals/bee.png',
-    'Camel':'images/animals/camel.png',
-    'Dog':'images/animals/dog.png',
-    'Dolphin':'images/animals/dolphin.png',
-    'Dragonfly':'images/animals/dragonfly.png',
-    'Duck':'images/animals/duck.png',
-    'Elephant':'images/animals/elephant.png',
-    'Fish':'images/animals/fish.png',
-    'Fox':'images/animals/fox.png',
-    'Frog':'images/animals/frog.png',
-    'Gnat':'images/animals/gnat.png',
-    'Hawk':'images/animals/hawk.png',
-    'Horse':'images/animals/horse.png',
-    'Koala':'images/animals/koala.png',
-    'Pig':'images/animals/pig.png',
-    'Pigeon':'images/animals/pigeon.png',
-    'Sheep':'images/animals/sheep.png',
-    'Stag':'images/animals/stag.png',
-    'Swan':'images/animals/swan.png',
-    'Trout':'images/animals/trout.png',
-    'Walrus':'images/animals/walrus.png',
-    'Wasp':'images/animals/wasp.png',
-    'Zebra':'images/animals/zebra.png'
-}
 
 @icons_blueprint.route('/', methods=['GET', 'POST'])
 def icon_menu():
+    images = {choice['item']: 'images/icons/%s' % choice['image'] for choice in Config.CHOICES}
+
     if request.method == 'GET':
         form = IconMenuForm(request.values)
-        return render_template('v2/task_icons/icon_menu.html', form=form, rows=6, cols=4)
+        return render_template('v2/task_icons/icon_menu.html', form=form, rows=5, cols=4, icons=Config.CHOICES)
     else:
         form = IconMenuForm(request.form)
         if form.data['yes']:

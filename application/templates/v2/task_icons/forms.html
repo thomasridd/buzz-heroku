@@ -8,7 +8,7 @@
                         <div class="col-1-of-4">
 
                             {% set choice = icons.choices[col + 4*row] -%}
-                            {% set image_url = url_for('static', filename="images/animals/" + choice[0].lower() + ".png") -%}
+                            {% set image_url = url_for('static', filename="images/icons/" + choice['image']) -%}
 
                             <div class="animal-button" id="{{ choice[0] }}" onclick="clickAnimalButton('{{ choice[0] }}')">
                                 <label for="icons-{{ col + 4*row - 1 }}"><img src="{{ image_url }}" class="animal-button__image"></label>

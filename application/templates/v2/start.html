@@ -41,6 +41,8 @@
     var selected_participant = "";
 
     function clickParticipant(participant) {
+        console.log('clicked ', participant);
+
         selected_participant = participant;
         deselectParticipants();
         selectParticipant(selected_participant);
@@ -58,7 +60,7 @@
     }
 
     function selectParticipant(participant) {
-        var element = document.getElementById(participant);
+        var element = document.getElementById('pb-' + participant);
         element.classList.add("participant-button-selected");
     }
 

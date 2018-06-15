@@ -11,6 +11,11 @@ def index():
         return render_template('v2/start.html', form=form)
     else:
         form = ParticipantForm(request.form)
+        print('Participant', form.data['participant'])
+        if form.data['participant'] == 'None':
+            print('eh up')
+            return redirect(url_for('root.index'))
+
         return redirect(url_for('root.tasks',
                                 participant=form.data['participant'],
                                 task_1_complete=False, task_2_complete=False, task_3_complete=False,
@@ -26,34 +31,37 @@ def tasks():
                                task_order=order_for_participant(request.values['participant']))
     else:
         form = TaskForm(request.form)
-        if form.data['task'] == 'task_1':
-            return redirect(url_for('icons.icon_menu',
-                                    participant=form.data['participant'],
-                                    task_1_complete=form.data['task_1_complete'],
-                                    task_2_complete=form.data['task_2_complete'],
-                                    task_3_complete=form.data['task_3_complete'],
-                                    task_4_complete=form.data['task_4_complete']))
-        elif form.data['task'] == 'task_2':
-            return redirect(url_for('swipe.swipe_menu',
-                                    participant=form.data['participant'],
-                                    task_1_complete=form.data['task_1_complete'],
-                                    task_2_complete=form.data['task_2_complete'],
-                                    task_3_complete=form.data['task_3_complete'],
-                                    task_4_complete=form.data['task_4_complete']))
-        elif form.data['task'] == 'task_3':
-            return redirect(url_for('tree.tree_menu',
-                                participant=form.data['participant'],
-                                task_1_complete=form.data['task_1_complete'],
-                                task_2_complete=form.data['task_2_complete'],
-                                task_3_complete=form.data['task_3_complete'],
-                                task_4_complete=form.data['task_4_complete']))
-        elif form.data['task'] == 'task_4':
-            return redirect(url_for('scanner.scanner_menu',
-                                participant=form.data['participant'],
-                                task_1_complete=form.data['task_1_complete'],
-                                task_2_complete=form.data['task_2_complete'],
-                                task_3_complete=form.data['task_3_complete'],
-                                task_4_complete=form.data['task_4_complete']))
+        if form.data['yes']:
+            if form.data['task'] == 'task_1':
+                return redirect(url_for('icons.icon_menu',
+                                        participant=form.data['participant'],
+                                        task_1_complete=form.data['task_1_complete'],
+                                        task_2_complete=form.data['task_2_complete'],
+                                        task_3_complete=form.data['task_3_complete'],
+                                        task_4_complete=form.data['task_4_complete']))
+            elif form.data['task'] == 'task_2':
+                return redirect(url_for('swipe.swipe_menu',
+                                        participant=form.data['participant'],
+                                        task_1_complete=form.data['task_1_complete'],
+                                        task_2_complete=form.data['task_2_complete'],
+                                        task_3_complete=form.data['task_3_complete'],
+                                        task_4_complete=form.data['task_4_complete']))
+            elif form.data['task'] == 'task_3':
+                return redirect(url_for('tree.tree_menu',
+                                        participant=form.data['participant'],
+                                        task_1_complete=form.data['task_1_complete'],
+                                        task_2_complete=form.data['task_2_complete'],
+                                        task_3_complete=form.data['task_3_complete'],
+                                        task_4_complete=form.data['task_4_complete']))
+            elif form.data['task'] == 'task_4':
+                return redirect(url_for('scanner.scanner_menu',
+                                        participant=form.data['participant'],
+                                        task_1_complete=form.data['task_1_complete'],
+                                        task_2_complete=form.data['task_2_complete'],
+                                        task_3_complete=form.data['task_3_complete'],
+                                        task_4_complete=form.data['task_4_complete']))
+            else:
+                return redirect(url_for('root.index'))
         else:
             return redirect(url_for('root.index'))
 

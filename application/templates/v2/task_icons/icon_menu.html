@@ -21,17 +21,52 @@
     </div>
 </header>
 <main>
-    <div class="section-litter-bug">
+    <div id="section-start" class="section-litter-bug">
+
+    </div>
+    <div id="section-play" class="section-litter-bug">
+        <fieldset class="animal-button__fieldset">
+            <div class="container">
+                {% for row in range(rows) %}
+                    <div class="row">
+                        {% for col in range(cols) %}
+                            <div class="col-1-of-4">
+                                {% set icon = icons[col + 4*row] -%}
+                                {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
+
+                                <div class="animal-button" id="{{ icon['item'] }}" onclick="clickAnimalButton('{{ icon['item'] }}')">
+                                    <img src="{{ image_url }}" class="animal-button__image">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+    </div>
+    <div id="section-confirm" class="section-litter-bug">
+        are you sure you want to have whatever it is
+    </div>
+
+    <div id="section-finalise" class="section-litter-bug">
+        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
+            {{ form.csrf_token }}
+            {{ render_yes_no_footer() }}
+        </form>
+    </div>
+
+    <div class="section-litter-bug" id="main-section" style="display: none">
         <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
 
             <div class="icon-task">
                 <div class="row">
                     {{ form.csrf_token }}
-                    {{ form.participant }}
-                    {{ form.task_1_complete }}
-                    {{ form.task_2_complete }}
-                    {{ form.task_3_complete }}
-                    {{ render_icon_list(form.icons, rows, cols) }}
+{#                    {{ form.participant }}#}
+{#                    {{ form.task_1_complete }}#}
+{#                    {{ form.task_2_complete }}#}
+{#                    {{ form.task_3_complete }}#}
+{#                    {{ form.task_4_complete }}#}
+{#                    {{ render_icon_list(form.icons, rows, cols) }}#}
                 </div>
                 <div class="row icon-task__bottom-spacer">&nbsp;</div>
             </div>

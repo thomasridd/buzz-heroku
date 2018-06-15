@@ -1,12 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, HiddenField
+from wtforms import RadioField, HiddenField, SubmitField
+from wtforms.validators import DataRequired
 
 
 class ParticipantForm(FlaskForm):
-    participant = RadioField('Participant', choices=[(d, 'Participant %d' % d) for d in range(1, 21)])
+    participant = RadioField('Participant', choices=[(d, 'Participant %d' % d) for d in range(1, 21)], validators=[DataRequired()])
+    start = SubmitField(label='start')
 
 
 class TaskForm(FlaskForm):
+    yes = SubmitField(label='yes')
+    no = SubmitField(label='no')
 
     participant = HiddenField('participant')
     task_1_complete = HiddenField('task_1_complete')

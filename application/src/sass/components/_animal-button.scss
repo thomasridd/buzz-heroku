@@ -4,9 +4,10 @@
   object-fit: cover;
   background-color: #fff;
   border-width: 1px;
-  border-radius: 1rem;
+  border-radius: 5px;
   border-color: #fff;
-  padding: 1rem;
+  padding: 0;
+  overflow: hidden;
 
   @media screen and (max-width: $break-small) {
     width: $icon-width-small;
