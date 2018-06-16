@@ -72,7 +72,12 @@
     }
 
     function activateYesButton() {
-        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+        document.getElementById('yes').classList.remove('yes-no__button--yes-disabled')
     }
 
+    function deactivateYesButton() {
+        document.getElementById('yes').classList.add('yes-no__button--yes-disabled')
+    }
+
+    deactivateYesButton()
 </script>

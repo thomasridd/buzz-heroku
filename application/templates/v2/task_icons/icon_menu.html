@@ -22,10 +22,37 @@
     </div>
 </header>
 <main>
-    <div id="section-start" class="section-litter-bug" style="display: none;">
+    <div id="section-start" class="section-litter-bug">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Task 1</p>
+                    <p>Icon menu</p>
+                </div>
+            </div>
+        </div>
 
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div id="start-yes-button" class="yes-no__button yes-no__button--yes"
+                                 onclick="clickStart()">
+                                Next
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="start-no-button" class="yes-no__button yes-no__button--no" onclick="clickBack()">
+                                Exit
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="section-play" class="section-litter-bug">
+    <div id="section-play" class="section-litter-bug" style="display: none;">
 
         <div class="container">
             <fieldset>
@@ -37,14 +64,24 @@
                                     {% set icon = icons[col + 4*row] -%}
                                     {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
 
-                                    <div class="animal-button" id="{{ icon['item'] }}"
-                                         onclick="clickAnimalButton('{{ icon['item'] }}')">
-                                        <img src="{{ image_url }}" class="animal-button__image">
+                                    <div class="icon-button" id="{{ icon['item'] }}"
+                                         onclick="clickIcon('{{ icon['item'] }}')">
+                                        <img src="{{ image_url }}" class="icon-button__image">
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
                     {% endfor %}
+                    <div class="row">
+                        <div class="col">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            &nbsp;
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -54,14 +91,15 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                             <div class="yes-no__button yes-no__button--yes">
-                                 Yes
-                             </div>
+                            <div id="task-yes-button" class="yes-no__button yes-no__button--yes"
+                                 onclick="clickIconYes()">
+                                Yes
+                            </div>
                         </div>
                         <div class="col">
-                             <div class="yes-no__button yes-no__button--no">
-                                 No
-                             </div>
+                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickIconNo()">
+                                No
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,21 +109,26 @@
 
     <div id="section-confirm" class="section-litter-bug" style="display: none">
         <div class="container">
-
+            <div class="row">
+                <div class="col">
+                    <img class="animal-confirm" id="confirm-image"/>
+                </div>
+            </div>
         </div>
+
         <div class="yes-no">
             <div class="footer-bar" id="sticky-footer">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                             <div class="yes-no__button yes-no__button--yes">
-                                 Yes
-                             </div>
+                            <div class="yes-no__button yes-no__button--yes" onclick="clickConfirmYes()">
+                                Yes
+                            </div>
                         </div>
                         <div class="col">
-                             <div class="yes-no__button yes-no__button--no">
-                                 No
-                             </div>
+                            <div class="yes-no__button yes-no__button--no" onclick="clickConfirmNo()">
+                                No
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,15 +157,64 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script>
-    var selected_animal = "";
+    var selected_icon = "";
+    var icons = {{ icons|safe}};
+    var root_url = '{{ url_for('static', filename="images/icons") }}'
 
-    function clickAnimalButton(animal) {
-        selected_animal = animal;
-        deselectAnimals();
-        selectAnimal(selected_animal);
-        activateConfirmButton();
+    function clickIcon(icon) {
+        selected_icon = icon;
+        deselectAllIcons();
+        selectIcon(selected_icon);
+        activateTaskYesButton();
 
-        sendClickToServer(animal);
+        sendClickToServer(icon);
+    };
+
+    function clickStart() {
+        $('#section-start').hide();
+        $('#section-play').show();
+    }
+
+    function clickBack() {
+        document.getElementById('icon-menu-form').submit();
+    }
+
+    function clickIconYes() {
+        updateConfirmSection();
+        $('#section-play').hide();
+        $('#section-confirm').show();
+    }
+
+    function clickIconNo() {
+        deselectAllIcons();
+        selected_icon = "";
+        deactivateTaskYesButton();
+
+        $('#section-start').show();
+        $('#section-play').hide();
+    }
+
+    function updateConfirmSection() {
+        for (var i in icons) {
+            if (icons[i]['item'] === selected_icon) {
+                var image_url = root_url + '/' + icons[i]['image'];
+                $('#confirm-image').attr("src", image_url);
+            }
+        }
+    }
+
+    function clickConfirmYes() {
+        deselectAllIcons();
+        selected_icon = "";
+        deactivateTaskYesButton();
+
+        $('#section-confirm').hide();
+        $('#section-start').show();
+    }
+
+    function clickConfirmNo() {
+        $('#section-confirm').hide();
+        $('#section-play').show();
     }
 
     function sendClickToServer(animal) {
@@ -138,30 +230,38 @@
         {#        });#}
     }
 
-    function animalImage(animal) {
-        return "{{ url_for('static', filename='images/animals/') }}" + animal + ".png"
-    }
-
-    function deselectAnimals() {
-        var animals = document.getElementsByClassName("animal-button");
+    function deselectAllIcons() {
+        var animals = document.getElementsByClassName("icon-button");
         for (var i in animals) {
-            var animal = animals[i];
-            if (animal && animal.classList) {
-                animal.classList.remove("animal-button-selected");
+            var icon = animals[i];
+            if (icon && icon.classList) {
+                icon.classList.remove("icon-button-selected");
             }
         }
     }
 
-    function selectAnimal(animal) {
-        document.getElementById(animal).classList.add("animal-button-selected");
+    function selectIcon(icon) {
+        document.getElementById(icon).classList.add("icon-button-selected");
     }
 
     function activateConfirmButton() {
-        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+        document.getElementById('yes').classList.remove('yes-no__button--yes-disabled')
+    }
+
+    function deactivateConfirmButton() {
+        document.getElementById('yes').classList.add('yes-no__button--yes-disabled')
+    }
+
+    function activateTaskYesButton() {
+        document.getElementById('task-yes-button').classList.remove('yes-no__button--yes-disabled')
+    }
+
+    function deactivateTaskYesButton() {
+        document.getElementById('task-yes-button').classList.add('yes-no__button--yes-disabled')
     }
 
     document.addEventListener("DOMContentLoaded", function (event) {
-
+        deactivateTaskYesButton();
     });
 
 

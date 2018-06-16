@@ -41,7 +41,6 @@
     var selected_participant = "";
 
     function clickParticipant(participant) {
-        console.log('clicked ', participant);
 
         selected_participant = participant;
         deselectParticipants();
@@ -65,7 +64,11 @@
     }
 
     function activateConfirmButton() {
-        document.getElementById('start').classList.remove('buzz-btn-confirm-disabled')
+        document.getElementById('start').classList.remove('yes-no__button--yes-disabled')
+    }
+
+    function deactivateConfirmButton() {
+        document.getElementById('start').classList.add('yes-no__button--yes-disabled')
     }
 
 </script>
