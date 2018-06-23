@@ -1,6 +1,7 @@
 import os
 from os.path import join, dirname
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Note this will fail with warnings, not exception
@@ -56,36 +57,26 @@ class Config:
     ]
 
     TREE = [
-        {'item': 'Animal', 'is_leaf': False, 'tree': [
-            {'item': 'Land', 'is_leaf': False, 'tree': [
-                {'item': 'Elephant', 'is_leaf': True},
-                {'item': 'Horse', 'is_leaf': True},
-                {'item': 'Koala', 'is_leaf': True},
-                {'item': 'Camel', 'is_leaf': True},
-                {'item': 'Antelopes', 'is_leaf': True},
-            ]},
-            {'item': 'Water', 'is_leaf': False, 'tree': [
-                {'item': 'Frog', 'is_leaf': True},
-                {'item': 'Walrus', 'is_leaf': True},
-                {'item': 'Hippo', 'is_leaf': True},
-            ]},
-        ]},
-        {'item': 'Fish', 'is_leaf': False, 'tree': [
-            {'item': 'Salmon', 'is_leaf': True},
-            {'item': 'Shark', 'is_leaf': True},
-            {'item': 'Whale', 'is_leaf': True},
-            {'item': 'Dolphin', 'is_leaf': True},
-        ]},
-        {'item': 'Insects', 'is_leaf': False, 'tree': [
-            {'item': 'Bee', 'is_leaf': True},
-            {'item': 'Wasp', 'is_leaf': True},
-            {'item': 'Gnat', 'is_leaf': True},
-        ]},
-        {'item': 'Birds', 'is_leaf': False, 'tree': [
-            {'item': 'Goose', 'is_leaf': True},
-            {'item': 'Eagle', 'is_leaf': True},
-            {'item': 'Pigeon', 'is_leaf': True},
-        ]}
+        {'item': 'Plastic', 'value': 'Plastic', 'image': 'plastic.png', 'subitems': [
+            {'item': 'Bottle cap', 'value': 'Bottle cap', 'image': 'bottlecap.png'},
+            {'item': 'Styrofoam', 'value': 'Styrofoam', 'image': 'styrofoam.png'},
+            {'item': 'Plastic bag', 'value': 'Plastic bag', 'image': 'plasticbag.png'},
+            {'item': 'Straw wrapper', 'value': 'Straw wrapper', 'image': 'strawwrapper.png'},
+            {'item': 'Straw', 'value': 'Straw', 'image': 'straw.png'}]},
+        {'item': 'Cigarette', 'value': 'Cigarette', 'image': 'cigarette.png'},
+        {'item': 'Paper', 'value': 'Paper', 'image': 'paper.png'},
+        {'item': 'Can', 'value': 'Can', 'image': 'can.png', 'subitems': [
+            {'item': 'Redbull', 'value': 'Redbull', 'image': 'redbull.png'},
+            {'item': 'Coke', 'value': 'Coke', 'image': 'coke.png'},
+            {'item': 'Beer can', 'value': 'Beer can', 'image': 'beercan.png'}]},
+        {'item': 'Glass', 'value': 'Glass', 'image': 'glass.png'},
+        {'item': 'Food', 'value': 'Food', 'image': 'food.png', 'subitems': [
+            {'item': 'McDonalds', 'value': 'McDonalds', 'image': 'mcdonalds.png'},
+            {'item': 'Banana', 'value': 'Banana', 'image': 'banana.png'}]},
+        {'item': 'Drink carton', 'value': 'Drink carton', 'image': 'drinkcarton.png', 'subitems': [
+            {'item': 'Drinks cup', 'value': 'Drinks cup', 'image': 'drinkscup.png'},
+            {'item': 'Starbucks', 'value': 'Starbucks', 'image': 'starbucks.png'},
+            {'item': 'Costa', 'value': 'Costa', 'image': 'costa.png'}]}
     ]
 
 

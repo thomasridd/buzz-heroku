@@ -1,4 +1,4 @@
-{% from "v2/task_icons/forms.html" import render_yes_no_footer %}
+{% from "tasks/forms.html" import render_yes_no_footer %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +52,8 @@
             </div>
         </div>
     </div>
-    <div id="section-play" class="section-litter-bug" style="display: none;">
 
+    <div id="section-play" class="section-litter-bug" style="display: none;">
         <div class="container">
             <fieldset>
                 <div class="section-litter-bug__task-menu">
@@ -137,7 +137,7 @@
     </div>
 
     <div id="section-finalise" class="section-litter-bug" style="display: none">
-        <form id="icon-menu-form" action="{{ url_for('icons.icon_menu') }}" method='post' class="icon-task__form">
+        <form id="icon-menu-form" action="{{ url_for('root.icon_menu') }}" method='post' class="icon-task__form">
             {{ form.participant }}
             {{ form.task_1_complete }}
             {{ form.task_2_complete }}

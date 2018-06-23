@@ -1,0 +1,254 @@
+{% from "task_icons/forms.html" import render_yes_no_footer %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+    <title>Litter bug</title>
+</head>
+<body>
+<header>
+    <div class="header-bar heading-tertiary">
+        Litter bug
+    </div>
+</header>
+<main>
+    <div id="section-start" class="section-litter-bug">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Task 3</p>
+                    <p>Original menu</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div id="start-yes-button" class="yes-no__button yes-no__button--yes"
+                                 onclick="clickStart()">
+                                Next
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="start-no-button" class="yes-no__button yes-no__button--no" onclick="clickBack()">
+                                Exit
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="section-main-menu" class="section-litter-bug" style="display: none;">
+        <div class="container">
+                <div class="section-litter-bug__task-menu">
+                    {% set rows = tree|length/2 %}
+                    {% for row in range(rows|round(0, 'ceil')|int) %}
+                        {% set ind = 2 * row %}
+                        <div class="row">
+                            {%  set icon = tree[ind] %}
+                            {%  set image_url = url_for('static', filename="images/icons/" + icon['image']) %}
+                            <div class="col">
+                            <div class="tree-button" id="{{ icon['item'] }}"
+                                 onclick="clickMainMenuButton('{{ icon['item'] }}')">
+                                <img src="{{ image_url }}" class="tree-button__image">
+                            </div>
+                            </div>
+
+                            <div class="col">
+                            {% if ind + 1 < tree|length %}
+                                {%  set icon = tree[ind + 1] %}
+                                {%  set image_url = url_for('static', filename="images/icons/" + icon['image']) %}
+                                <div class="tree-button" id="{{ icon['item'] }}"
+                                     onclick="clickMainMenuButton('{{ icon['item'] }}')">
+                                    <img src="{{ image_url }}" class="tree-button__image">
+                                </div>
+                            {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        </div>
+
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div id="task-yes-button" class="yes-no__button yes-no__button--yes"
+                                 onclick="clickMainMenuYes()">
+                                Yes
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickMainMenuNo()">
+                                No
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-confirm" class="section-litter-bug" style="display: none">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="animal-confirm" id="confirm-image"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="yes-no__button yes-no__button--yes" onclick="clickConfirmYes()">
+                                Yes
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="yes-no__button yes-no__button--no" onclick="clickConfirmNo()">
+                                No
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-finalise" class="section-litter-bug" style="display: none">
+        <form id="icon-menu-form" action="{{ url_for('root.icon_menu') }}" method='post' class="icon-task__form">
+            {{ form.participant }}
+            {{ form.task_1_complete }}
+            {{ form.task_2_complete }}
+            {{ form.task_3_complete }}
+            {{ form.task_4_complete }}
+            {{ form.csrf_token }}
+            {{ render_yes_no_footer() }}
+        </form>
+    </div>
+
+</main>
+</body>
+</html>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    var selected_icon = "";
+    var tree = {{ tree|safe}};
+    var root_url = '{{ url_for('static', filename="images/icons") }}'
+
+    function clickMainMenuButton(icon) {
+        selected_icon = icon;
+        deselectAllIcons();
+        selectTreeButton(selected_icon);
+        activateTaskYesButton();
+
+        sendClickToServer(icon);
+    }
+
+    function clickStart() {
+        $('#section-start').hide();
+        $('#section-main-menu').show();
+    }
+
+    function clickBack() {
+        document.getElementById('icon-menu-form').submit();
+    }
+
+    function clickMainMenuYes() {
+
+    }
+
+    function clickMainMenuNo() {
+    }
+
+    function updateConfirmSection() {
+        for (var i in icons) {
+            if (icons[i]['item'] === selected_icon) {
+                var image_url = root_url + '/' + icons[i]['image'];
+                $('#confirm-image').attr("src", image_url);
+            }
+        }
+    }
+
+    function clickConfirmYes() {
+        deselectAllIcons();
+        selected_icon = "";
+        deactivateTaskYesButton();
+
+        $('#section-confirm').hide();
+        $('#section-start').show();
+    }
+
+    function clickConfirmNo() {
+        $('#section-confirm').hide();
+        $('#section-play').show();
+    }
+
+    function sendClickToServer(animal) {
+        {#var registerAnimalUrl = "{{ url_for('version_1.register_click', animal='ANIMAL_TO_REGISTER') }}";#}
+        {#var url = registerAnimalUrl.replace(/ANIMAL_TO_REGISTER/, animal);#}
+        {##}
+        {#        console.log(url);#}
+        {#        $.ajax({#}
+        {#            type: "POST",#}
+        {#            url: url,#}
+        {#            context: document.body,#}
+        {#            success: function(){}#}
+        {#        });#}
+    }
+
+    function deselectAllIcons() {
+        var animals = document.getElementsByClassName("tree-button");
+        for (var i in animals) {
+            var icon = animals[i];
+            if (icon && icon.classList) {
+                icon.classList.remove("tree-button-selected");
+            }
+        }
+    }
+
+    function selectTreeButton(icon) {
+        document.getElementById(icon).classList.add("tree-button-selected");
+    }
+
+    function activateTaskYesButton() {
+        document.getElementById('task-yes-button').classList.remove('yes-no__button--yes-disabled')
+    }
+
+    function deactivateTaskYesButton() {
+        document.getElementById('task-yes-button').classList.add('yes-no__button--yes-disabled')
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        deactivateTaskYesButton();
+    });
+
+
+</script>

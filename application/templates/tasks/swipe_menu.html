@@ -1,4 +1,4 @@
-{% from "v2/task_icons/forms.html" import render_swipe_icons, render_yes_no_footer %}
+{% from "task_icons/forms.html" import render_swipe_icons, render_yes_no_footer %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@
 </header>
 <main>
     <div class="section-litter-bug">
-        <form id="swipe-menu-form" action="{{ url_for('swipe.swipe_menu') }}" method='post' class="swipe-task__form">
+        <form id="swipe-menu-form" action="{{ url_for('root.swipe_cards') }}" method='post' class="swipe-task__form">
 
             <div class="row">
                 {{ form.csrf_token }}

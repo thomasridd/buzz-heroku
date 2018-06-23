@@ -13,6 +13,23 @@
     </div>
 {%- endmacro %}
 
+
+{% macro render_yes_no_footer() -%}
+<div class="yes-no">
+<div class="footer-bar" id="sticky-footer">
+    <div class="row">
+        <div class="col-1-of-2">
+            <button id="yes" name="yes" type="submit" value="yes" class="yes-no__button yes-no__button--yes">Yes</button>
+        </div>
+        <div class="col-1-of-2">
+            <button id="no" name="no" type="submit" value="no"  class="yes-no__button yes-no__button--no">No</button>
+        </div>
+    </div>
+</div>
+</div>
+{%- endmacro %}
+
+
 {% macro render_participant_list(participants) -%}
     <fieldset class="icon-button__fieldset">
         <div class="container">
@@ -33,7 +50,6 @@
 {%- endmacro %}
 
 {% macro render_task_list(tasks, order) -%}
-
     <fieldset class="icon-button__fieldset">
         <div class="container">
             {% for row in order %}
@@ -51,19 +67,4 @@
             {% endfor %}
         </div>
     </fieldset>
-{%- endmacro %}
-
-{% macro render_yes_no_footer() -%}
-<div class="yes-no">
-<div class="footer-bar" id="sticky-footer">
-    <div class="row">
-        <div class="col-1-of-2">
-            <button id="yes" name="yes" type="submit" value="yes" class="yes-no__button yes-no__button--yes">Yes</button>
-        </div>
-        <div class="col-1-of-2">
-            <button id="no" name="no" type="submit" value="no"  class="yes-no__button yes-no__button--no">No</button>
-        </div>
-    </div>
-</div>
-</div>
 {%- endmacro %}

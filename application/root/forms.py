@@ -8,7 +8,7 @@ class ParticipantForm(FlaskForm):
     start = SubmitField(label='start')
 
 
-class TaskForm(FlaskForm):
+class TaskListForm(FlaskForm):
     yes = SubmitField(label='yes')
     no = SubmitField(label='no')
 
@@ -21,3 +21,11 @@ class TaskForm(FlaskForm):
     choices = [('task_1', 'Icon Menu'), ('task_2', 'Swipe Menu'),
                ('task_3', 'Original Menu'), ('task_4', 'Alternate Device')]
     task = RadioField('Task', choices=choices)
+
+
+class TaskForm(FlaskForm):
+    participant = HiddenField('participant')
+    task_1_complete = HiddenField('task_1_complete')
+    task_2_complete = HiddenField('task_2_complete')
+    task_3_complete = HiddenField('task_3_complete')
+    task_4_complete = HiddenField('task_4_complete')

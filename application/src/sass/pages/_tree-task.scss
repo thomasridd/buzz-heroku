@@ -1,4 +1,4 @@
-.icon-task {
+.tree-task {
 	position: absolute;
 	width: 50%;
 	min-width: 30rem;
@@ -8,21 +8,12 @@
 	margin:0;
 }
 
-.icon-task__form {
+.tree-task__form {
 	border-width: 4px;
 	width: 100%;
 	margin: 0;
 }
 
-.icon-task__bottom-spacer {
+.tree-task__bottom-spacer {
 	height: 8rem;
-}
-
-.section-litter-bug__task-menu {
-	position: absolute;
-	width: 90%;
-	max-width: 50rem;
-	left: 50%;
-	transform: translateX(-50%);
-
 }
