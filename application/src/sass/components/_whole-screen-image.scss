@@ -2,8 +2,10 @@
 
 .whole-screen-image {
     position: absolute;
-	height: $icon-extra-large-width;
-	width: $icon-extra-large-width;
+	height: $icon-extra-large-size;
+	width: $icon-extra-large-size;
+	max-width: $icon-extra-large-max-size;
+	max-height: $icon-extra-large-max-size;
     object-fit: cover;
     background-color: #fff;
     border-radius: .5rem;

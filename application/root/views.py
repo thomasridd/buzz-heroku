@@ -46,7 +46,7 @@ def tasks():
                                         task_3_complete=form.data['task_3_complete'],
                                         task_4_complete=form.data['task_4_complete']))
             elif form.data['task'] == 'task_3':
-                return redirect(url_for('root.tree_menu',
+                return redirect(url_for('root.sub_menus',
                                         participant=form.data['participant'],
                                         task_1_complete=form.data['task_1_complete'],
                                         task_2_complete=form.data['task_2_complete'],
@@ -109,7 +109,7 @@ def swipe_cards():
 def sub_menus():
     if request.method == 'GET':
         form = TaskForm(request.values)
-        return render_template('tasks/sub_menu.html', form=form, cards=Config.CHOICES)
+        return render_template('tasks/sub_menu.html', form=form, tree=Config.TREE)
     else:
         form = EndTaskForm(request.values)
 

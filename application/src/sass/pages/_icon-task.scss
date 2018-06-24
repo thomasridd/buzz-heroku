@@ -62,8 +62,10 @@
     border-width: solid 1rem $color-confirm;
     box-shadow: 0 1rem 2rem rgba($color-black, .2);
     border-radius: 3rem;
-    height: $icon-extra-large-width;
-    width: $icon-extra-large-width;
+	height: $icon-extra-large-size;
+	width: $icon-extra-large-size;
+	max-width: $icon-extra-large-max-size;
+	max-height: $icon-extra-large-max-size;
   }
 
   &__fieldset {

@@ -26,8 +26,25 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p>Task 3</p>
-                    <p>Original menu</p>
+                    <div class="heading-secondary">
+                        Task 3
+                    </div>
+                    <div class="heading-tertiary">
+                        Submenus
+                    </div>
+                    <div class="paragraph">
+                        This is a the start page for the sub menu task
+                    </div>
+                    <div class="paragraph">
+                        A task cycles through three pages - start, pick and confirm until you click exit on the start
+                        page
+                    </div>
+                    <div class="paragraph">
+                        Tap <strong>Next</strong> to classify more litter
+                    </div>
+                    <div class="paragraph">
+                        Tap <strong>Exit</strong> to return to the task list
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,39 +70,52 @@
         </div>
     </div>
 
-
-
-
-
-    <div id="section-main-menu" class="section-litter-bug" style="display: none;">
+    <div id="section-play" class="section-litter-bug" style="display: none;">
         <div class="container">
-                <div class="section-litter-bug__task-menu">
-                    {% set rows = tree|length/2 %}
-                    {% for row in range(rows|round(0, 'ceil')|int) %}
-                        {% set ind = 2 * row %}
-                        <div class="row">
-                            {%  set icon = tree[ind] %}
-                            {%  set image_url = url_for('static', filename="images/icons/" + icon['image']) %}
-                            <div class="col">
-                            <div class="tree-button" id="{{ icon['item'] }}"
-                                 onclick="clickMainMenuButton('{{ icon['item'] }}')">
-                                <img src="{{ image_url }}" class="tree-button__image">
+            {% for item in tree %}
+                {% if item.subitems %}
+                    <div class="row">
+                        <div class="col-6 offset-3">
+                            {% set image_url = url_for('static', filename="images/icons/" + item['image']) -%}
+                            <div class="submenu-item submenu-item__branch" id="{{ item['item'] }}"
+                                 onclick="clickBranch('{{ item['item'] }}')">
+                                <img src="{{ image_url }}" class="submenu-item__image">
                             </div>
-                            </div>
-
-                            <div class="col">
-                            {% if ind + 1 < tree|length %}
-                                {%  set icon = tree[ind + 1] %}
-                                {%  set image_url = url_for('static', filename="images/icons/" + icon['image']) %}
-                                <div class="tree-button" id="{{ icon['item'] }}"
-                                     onclick="clickMainMenuButton('{{ icon['item'] }}')">
-                                    <img src="{{ image_url }}" class="tree-button__image">
+                        </div>
+                    </div>
+                    {% for subitem in item.subitems %}
+                        <div class="row submenu-item__subitem" id="{{ subitem['item'] }} row" style="display: none">
+                            <div class="col-6 offset-4">
+                                {% set image_url = url_for('static', filename="images/icons/" + subitem['image']) -%}
+                                <div class="submenu-item submenu-item__leaf" id="{{ subitem['item'] }}"
+                                     onclick="clickLeaf('{{ subitem['item'] }}')">
+                                    <img src="{{ image_url }}" class="submenu-item__image">
                                 </div>
-                            {% endif %}
                             </div>
                         </div>
                     {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="col-6 offset-3">
+                            {% set image_url = url_for('static', filename="images/icons/" + item['image']) -%}
+                            <div class="submenu-item submenu-item__leaf" id="{{ item['item'] }}"
+                                 onclick="clickLeaf('{{ item['item'] }}')">
+                                <img src="{{ image_url }}" class="submenu-item__image">
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="row">
+                <div class="col">
+                    &nbsp;&nbsp;
                 </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    &nbsp;
+                </div>
+            </div>
         </div>
 
         <div class="yes-no">
@@ -94,12 +124,12 @@
                     <div class="row">
                         <div class="col">
                             <div id="task-yes-button" class="yes-no__button yes-no__button--yes"
-                                 onclick="clickMainMenuYes()">
+                                 onclick="clickItemYes()">
                                 Yes
                             </div>
                         </div>
                         <div class="col">
-                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickMainMenuNo()">
+                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickItemNo()">
                                 No
                             </div>
                         </div>
@@ -113,7 +143,16 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <img class="animal-confirm" id="confirm-image"/>
+                    <div class="heading-secondary">
+                        Task 3
+                    </div>
+                    <div class="heading-tertiary">
+                        Submenus
+                    </div>
+                    <div class="paragraph">
+                        This screen is to confirm the choice
+                    </div>
+                    <img class="whole-screen-image" id="confirm-image"/>
                 </div>
             </div>
         </div>
@@ -159,47 +198,61 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script>
-    var selected_icon = "";
-    var tree = {{ tree|safe}};
-    var root_url = '{{ url_for('static', filename="images/icons") }}'
-
-    function clickMainMenuButton(icon) {
-        selected_icon = icon;
-        deselectAllIcons();
-        selectTreeButton(selected_icon);
-        activateTaskYesButton();
-
-        sendClickToServer(icon);
-    }
+    var currentSelectedItem = "";
+    var tree = {{ tree|safe }};
+    var root_url = '{{ url_for('static', filename="images/icons") }}';
+    var currentOpenBranch = "";
 
     function clickStart() {
         $('#section-start').hide();
-        $('#section-main-menu').show();
+        $('#section-play').show();
     }
 
     function clickBack() {
         document.getElementById('icon-menu-form').submit();
     }
 
-    function clickMainMenuYes() {
-
+    function clickItemYes() {
+        console.log('yes');
+        updateConfirmSection();
+        $('#section-play').hide();
+        $('#section-confirm').show();
     }
 
-    function clickMainMenuNo() {
+    function clickItemNo() {
+        deselectAllIcons();
+        selected_icon = "";
+        deactivateTaskYesButton();
+
+        $('#section-start').show();
+        $('#section-play').hide();
     }
 
     function updateConfirmSection() {
-        for (var i in icons) {
-            if (icons[i]['item'] === selected_icon) {
-                var image_url = root_url + '/' + icons[i]['image'];
-                $('#confirm-image').attr("src", image_url);
+        for (var i = 0; i < tree.length; i++) {
+            var item = tree[i]
+            if (item.subitems) {
+                for (var j = 0; j < item.subitems.length; j++) {
+                    var subitem = item.subitems[j];
+                    if (subitem['value'] === currentSelectedItem) {
+                        var image_url = root_url + '/' + subitem['image'];
+                        $('#confirm-image').attr("src", image_url);
+                    }
+                }
+            } else {
+                if (item['value'] === currentSelectedItem) {
+                    var image_url = root_url + '/' + item['image'];
+                    $('#confirm-image').attr("src", image_url);
+                }
             }
         }
     }
 
     function clickConfirmYes() {
-        deselectAllIcons();
-        selected_icon = "";
+        deselectAllLeaves();
+        closeAllBranches();
+        currentOpenBranch = "";
+        currentSelectedItem = "";
         deactivateTaskYesButton();
 
         $('#section-confirm').hide();
@@ -209,6 +262,74 @@
     function clickConfirmNo() {
         $('#section-confirm').hide();
         $('#section-play').show();
+    }
+
+    function clickBranch(item) {
+        var allSubitems = document.getElementsByClassName('submenu-item__subitem');
+        for (var i = 0; i < allSubitems.length; i++) {
+            allSubitems[i].style.display = "none";
+        }
+
+        if (currentOpenBranch === item) {
+            closeBranch(item);
+            currentOpenBranch = "";
+        } else {
+            openBranch(item);
+            currentOpenBranch = item;
+        }
+    }
+
+    function clickLeaf(item) {
+        currentSelectedItem = item;
+        deselectAllLeaves();
+        document.getElementById(item).classList.add('submenu-item__leaf--selected')
+        activateTaskYesButton();
+    }
+
+    function deselectAllLeaves() {
+        var leaves = document.getElementsByClassName('submenu-item__leaf');
+        for (var i = 0; i < leaves.length; i++) {
+            leaves[i].classList.remove('submenu-item__leaf--selected')
+        }
+    }
+
+    function openBranch(item) {
+        var branch = getBranchWithItemNamed(item);
+        for (var i = 0; i < branch.subitems.length; i++) {
+            document.getElementById(branch.subitems[i]['value'] + ' row').style.display = "block";
+        }
+    }
+
+    function closeBranch(item) {
+        var branch = getBranchWithItemNamed(item);
+        for (var i = 0; i < branch.subitems.length; i++) {
+            if (branch.subitems[i]['value'] === currentSelectedItem) {
+                document.getElementById(currentSelectedItem).classList.remove('submenu-item__leaf--selected')
+                currentSelectedItem = "";
+                deactivateTaskYesButton();
+            }
+        }
+    }
+
+    function closeAllBranches() {
+        for (var i = 0; i < tree.length; i++) {
+            if(tree[i].subitems) {
+                closeBranch(tree[i]['value'])
+            }
+        }
+    }
+
+    function getBranchWithItemNamed(name) {
+        for (var t in tree) {
+            if (tree[t]['value'] == name) {
+                return tree[t];
+            }
+        }
+        return null;
+    }
+
+    function deselectAll() {
+
     }
 
     function sendClickToServer(animal) {
@@ -222,20 +343,6 @@
         {#            context: document.body,#}
         {#            success: function(){}#}
         {#        });#}
-    }
-
-    function deselectAllIcons() {
-        var animals = document.getElementsByClassName("tree-button");
-        for (var i in animals) {
-            var icon = animals[i];
-            if (icon && icon.classList) {
-                icon.classList.remove("tree-button-selected");
-            }
-        }
-    }
-
-    function selectTreeButton(icon) {
-        document.getElementById(icon).classList.add("tree-button-selected");
     }
 
     function activateTaskYesButton() {
