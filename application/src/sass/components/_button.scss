@@ -1,3 +1,5 @@
+//Buzz buttons are used as the primary yes-no buttons throughout this app
+
 .buzz-btn {
 	&,
 	&:link,
@@ -24,7 +26,7 @@
 	}
 
 	&:hover {
-		transform: translateY(-.2rem);
+		transform: translateY(-.1rem);
 		background-color: $color-grey-dark;
 
 		&::after {
@@ -102,4 +104,64 @@
 	   		cursor: default;
 		}
 	}
+}
+
+.buzz-wide-btn {
+  height: $icon-width;
+  width: $icon-width;
+  object-fit: cover;
+  background-color: #fff;
+  border-width: 1px;
+  border-radius: 1rem;
+  border-color: #fff;
+  padding: 1rem;
+
+  @media screen and (max-width: $break-small) {
+    width: $icon-width-small;
+    height: $icon-width-small;
+    float: none;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__radio-button {
+    display: none;
+  }
+
+  &-selected {
+    border: solid .5rem $color-confirm;
+    transform: translateY(-.1rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+  }
+
+  &--extra-large {
+    border-width: solid 1rem $color-confirm;
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    border-radius: 3rem;
+    height: $icon-extra-large-width;
+    width: $icon-extra-large-width;
+  }
+
+  &__fieldset {
+    border-width: 0px;
+  }
+
+  &:hover {
+    transform: translateY(-.2rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-.1rem);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+  }
 }

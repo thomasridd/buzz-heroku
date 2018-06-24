@@ -1,14 +1,19 @@
-.icon-button {
-  height: $icon-width;
-  width: $icon-width;
-  max-width: $icon-max-width;
+.task-button {
+  position: relative;
+  height: $task-height;
+  width: $task-width;
+  left: 50%;
+  transform: translateX(-50%);
+
   object-fit: cover;
   background-color: #fff;
   border-width: 1px;
-  border-radius: 5px;
+  border-radius: 1rem;
   border-color: #fff;
-  padding: 0;
-  overflow: hidden;
+  padding: .5rem;
+  font-size: 2rem;
+  text-align: center;
+  display: inline-block;
 
   @media screen and (max-width: $break-small) {
     width: $icon-width-small;
@@ -25,17 +30,10 @@
   }
 
   &-selected {
+    padding:0;
     border: solid .5rem $color-confirm;
-    transform: translateY(-.1rem);
+    transform: translate(-50%, -.1rem);
     box-shadow: 0 1rem 2rem rgba($color-black, .2);
-  }
-
-  &--extra-large {
-    border-width: solid 1rem $color-confirm;
-    box-shadow: 0 1rem 2rem rgba($color-black, .2);
-    border-radius: 3rem;
-    height: $icon-extra-large-width;
-    width: $icon-extra-large-width;
   }
 
   &__fieldset {
@@ -43,19 +41,36 @@
   }
 
   &:hover {
-    transform: translateY(-.2rem);
+    transform: translate(-50%, -.1rem);
     box-shadow: 0 1rem 2rem rgba($color-black, .2);
 
     &::after {
       transform: scaleX(1.4) scaleY(1.6);
       opacity: 0;
+      clear:both;
     }
   }
 
   &:active,
   &:focus {
     outline: none;
-    transform: translateY(-.1rem);
+    transform: translate(-50%, -.1rem);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+  }
+
+	@include clearfix;
+}
+
+.task-row {
+  max-width: $grid-width;
+  height: auto;
+  margin: 0 auto;
+
+  &:not(:last-child) {
+    margin-bottom: calc(.5 * #{$gutter-vertical});
+  }
+
+  &:last-child {
+    margin-bottom: calc(5 * #{$gutter-vertical});
   }
 }

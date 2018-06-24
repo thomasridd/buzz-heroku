@@ -1,12 +1,14 @@
-.animal-confirm {
+
+
+.whole-screen-image {
     position: absolute;
 	height: $icon-extra-large-width;
 	width: $icon-extra-large-width;
     object-fit: cover;
     background-color: #fff;
-    border-radius: 3rem;
-    border: 1rem solid $color-confirm;
-	padding: 3rem;
+    border-radius: .5rem;
+    border: 3px solid $color-confirm;
+	padding: 0;
     left: 50%;
     transform: translateX(-50%);
 

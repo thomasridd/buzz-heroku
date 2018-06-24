@@ -1,4 +1,4 @@
-{% from "tasks/forms.html" import render_yes_no_footer %}
+{% from "tasks/forms.html" import render_swipe_icons, render_yes_no_footer %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +8,10 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-
-    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
     <title>Litter bug</title>
 </head>
@@ -27,13 +27,13 @@
             <div class="row">
                 <div class="col">
                     <div class="heading-secondary">
-                        Task 1
+                        Task 2
                     </div>
                     <div class="heading-tertiary">
-                        Icon menu
+                        Swipe cards
                     </div>
                     <div class="paragraph">
-                        This is a the start page for the one icon menu
+                        This is a the start page for swipe tasks.
                     </div>
                     <div class="paragraph">
                         A task cycles through three pages - start, pick and confirm until you click exit on the start page
@@ -69,37 +69,19 @@
         </div>
     </div>
 
-    <div id="section-play" class="section-litter-bug" style="display: none;">
+    <div id="section-swipe" class="section-litter-bug" style="display: none;">
         <div class="container">
-            <fieldset>
-                <div class="section-litter-bug__task-menu">
-                    {% for row in range(rows) %}
-                        <div class="row">
-                            {% for col in range(cols) %}
-                                <div class="col icon-col">
-                                    {% set icon = icons[col + 4*row] -%}
-                                    {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
+            <div id="swipe-icons" class="swipe-icons">
+                {% for card in cards %}
+                    {% set image_url = url_for('static', filename="images/icons/" + card['image']) -%}
 
-                                    <div class="icon" id="{{ icon['item'] }}"
-                                         onclick="clickIcon('{{ icon['item'] }}')">
-                                        <img src="{{ image_url }}" class="icon__image">
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                    <div class="row">
-                        <div class="col">
-                            &nbsp;
+                    <div class="swipe-icon">
+                        <div class="swipe-choice">
+                            <img src="{{ image_url }}" class="swipe-choice__image"/>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            &nbsp;
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="yes-no">
@@ -108,12 +90,12 @@
                     <div class="row">
                         <div class="col">
                             <div id="task-yes-button" class="yes-no__button yes-no__button--yes"
-                                 onclick="clickIconYes()">
+                                 onclick="clickCardYes()">
                                 Yes
                             </div>
                         </div>
                         <div class="col">
-                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickIconNo()">
+                            <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickCardNo()">
                                 No
                             </div>
                         </div>
@@ -128,10 +110,10 @@
             <div class="row">
                 <div class="col">
                     <div class="heading-secondary">
-                        Task 1
+                        Task 2
                     </div>
                     <div class="heading-tertiary">
-                        Icon menu
+                        Swipe menu
                     </div>
                     <div class="paragraph">
                         This screen is to confirm the choice
@@ -181,66 +163,63 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-<script>
-    var selected_icon = "";
-    var icons = {{ icons|safe}};
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script type="text/javascript">
+
+    var cards = {{ cards|safe}};
+    var selectedCard = null;
     var root_url = '{{ url_for('static', filename="images/icons") }}'
 
-    function clickIcon(icon) {
-        selected_icon = icon;
-        deselectAllIcons();
-        selectIcon(selected_icon);
-        activateTaskYesButton();
 
-        sendClickToServer(icon);
-    };
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('yes').classList.remove('buzz-btn-confirm-disabled')
+    }, false);
 
-    function clickStart() {
-        $('#section-start').hide();
-        $('#section-play').show();
+    function setupSwipeSettings() {
+        var slickSettings = {
+            infinite: true,
+            centerMode: true,
+            centerPadding: '5px',
+            slidesToShow: 3,
+            speed: 1000,
+            variableWidth: true,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        infinite: true,
+                        centerMode: true,
+                        centerPadding: '5px',
+                        slidesToShow: 3,
+                        speed: 500,
+                        variableWidth: true,
+                        arrows: false
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        infinite: true,
+                        centerMode: true,
+                        centerPadding: '5px',
+                        slidesToShow: 3,
+                        speed: 500,
+                        variableWidth: true,
+                        arrows: false
+                    }
+                }
+            ]
+        };
+
+        $('#swipe-icons').slick(slickSettings);
     }
 
-    function clickBack() {
-        document.getElementById('icon-menu-form').submit();
-    }
-
-    function clickIconYes() {
-        updateConfirmSection();
-        $('#section-play').hide();
-        $('#section-confirm').show();
-    }
-
-    function clickIconNo() {
-        deselectAllIcons();
-        selected_icon = "";
-        deactivateTaskYesButton();
-
-        $('#section-start').show();
-        $('#section-play').hide();
-    }
-
-    function updateConfirmSection() {
-        for (var i in icons) {
-            if (icons[i]['item'] === selected_icon) {
-                var image_url = root_url + '/' + icons[i]['image'];
-                $('#confirm-image').attr("src", image_url);
-            }
-        }
-    }
-
-    function clickConfirmYes() {
-        deselectAllIcons();
-        selected_icon = "";
-        deactivateTaskYesButton();
-
-        $('#section-confirm').hide();
-        $('#section-start').show();
-    }
-
-    function clickConfirmNo() {
-        $('#section-confirm').hide();
-        $('#section-play').show();
-    }
 
     function sendClickToServer(animal) {
         {#var registerAnimalUrl = "{{ url_for('version_1.register_click', animal='ANIMAL_TO_REGISTER') }}";#}
@@ -255,31 +234,50 @@
         {#        });#}
     }
 
-    function deselectAllIcons() {
-        var icons = document.getElementsByClassName("icon");
-        for (var i in icons) {
-            var icon = icons[i];
-            if (icon && icon.classList) {
-                icon.classList.remove("icon-selected");
-            }
-        }
-    }
-
-    function selectIcon(icon) {
-        document.getElementById(icon).classList.add("icon-selected");
-    }
-
-    function activateTaskYesButton() {
-        document.getElementById('task-yes-button').classList.remove('yes-no__button--yes-disabled')
-    }
-
-    function deactivateTaskYesButton() {
-        document.getElementById('task-yes-button').classList.add('yes-no__button--yes-disabled')
-    }
-
-    document.addEventListener("DOMContentLoaded", function (event) {
-        deactivateTaskYesButton();
+    $('.swipe-icons').on('afterChange', function (event, slick, currentSlide) {
+        setSelectedCard(cards[currentSlide])
     });
 
+    function setSelectedCard(card) {
+        selectedCard = card;
 
+        var image_url = root_url + '/' + selectedCard['image'];
+        $('#confirm-image').attr("src", image_url);
+    }
+
+
+    function clickStart() {
+        $('#section-start').hide();
+        $('#section-swipe').show();
+        setSelectedCard(cards[0]);
+        setupSwipeSettings();
+    }
+
+    function clickBack() {
+        document.getElementById('icon-menu-form').submit();
+    }
+
+    function clickCardYes() {
+        $('#section-confirm').show();
+        $('#section-swipe').hide();
+    }
+
+    function clickCardNo() {
+        $('#section-swipe').hide();
+        $('#section-start').show();
+    }
+
+    function clickConfirmYes() {
+        selected_icon = cards[0];
+
+        $('#section-confirm').hide();
+        $('#section-start').show();
+    }
+
+    function clickConfirmNo() {
+        $('#section-confirm').hide();
+        $('#section-swipe').show();
+    }
+
+    activateConfirmButton();
 </script>

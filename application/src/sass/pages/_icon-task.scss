@@ -24,5 +24,66 @@
 	max-width: 50rem;
 	left: 50%;
 	transform: translateX(-50%);
+}
 
+.icon {
+  height: $icon-width;
+  width: $icon-width;
+  max-width: $icon-max-width;
+  object-fit: cover;
+  background-color: #fff;
+  border-width: 1px;
+  border-radius: 2px;
+  border-color: #fff;
+  padding: 0;
+  overflow: hidden;
+
+  @media screen and (max-width: $break-small) {
+    width: $icon-width-small;
+    height: $icon-width-small;
+    float: none;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__radio-button {
+    display: none;
+  }
+
+  &-selected {
+    border: solid 5px $color-confirm;
+    transform: translateY(-.1rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+  }
+
+  &--extra-large {
+    border-width: solid 1rem $color-confirm;
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    border-radius: 3rem;
+    height: $icon-extra-large-width;
+    width: $icon-extra-large-width;
+  }
+
+  &__fieldset {
+    border-width: 0px;
+  }
+
+  &:hover {
+    transform: translateY(-.1rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-.1rem);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+  }
 }

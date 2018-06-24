@@ -31,7 +31,7 @@
 
 
 {% macro render_participant_list(participants) -%}
-    <fieldset class="icon-button__fieldset">
+    <fieldset class="icon__fieldset">
         <div class="container">
             {% for row in range(0,20) %}
                 <div class="participant-row">
@@ -50,7 +50,7 @@
 {%- endmacro %}
 
 {% macro render_task_list(tasks, order) -%}
-    <fieldset class="icon-button__fieldset">
+    <fieldset class="icon__fieldset">
         <div class="container">
             {% for row in order %}
                 <div class="task-row">

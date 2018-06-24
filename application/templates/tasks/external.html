@@ -1,4 +1,4 @@
-{% from "task_icons/forms.html" import render_yes_no_footer %}
+{% from "tasks/forms.html" import render_yes_no_footer %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/icon-font.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
     <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 
     <title>Litter bug</title>
@@ -21,19 +22,58 @@
     </div>
 </header>
 <main>
-    <div class="section-litter-bug">
-        <form id="scanner-menu-form" action="{{ url_for('root.external') }}" method='post' class="scanner-task__form">
-
-            <div class="scanner-task">
-                <div class="row">
-                    {{ form.csrf_token }}
-                    {{ form.participant }}
-                    {{ form.task_1_complete }}
-                    {{ form.task_2_complete }}
-                    {{ form.task_3_complete }}
-                    {{ form.task_4_complete }}
+    <div id="section-start" class="section-litter-bug">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="heading-secondary">
+                        Task 4
+                    </div>
+                    <div class="heading-tertiary">
+                        External task
+                    </div>
+                    <div class="paragraph">
+                        This is a the start page for the external task
+                    </div>
+                    <div class="paragraph">
+                        This task is completed outside this app
+                    </div>
+                    <div class="paragraph">
+                        Tap <strong>Exit</strong> to return to the task list
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="yes-no">
+            <div class="footer-bar" id="sticky-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div id="start-yes-button" class="yes-no__button yes-no__button--yes"
+                                 onclick="clickStart()">
+                                Next
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="start-no-button" class="yes-no__button yes-no__button--no" onclick="clickBack()">
+                                Exit
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-finalise" class="section-litter-bug" style="display: none">
+        <form id="external-form" action="{{ url_for('root.external') }}" method='post' class="icon-task__form">
+            {{ form.participant }}
+            {{ form.task_1_complete }}
+            {{ form.task_2_complete }}
+            {{ form.task_3_complete }}
+            {{ form.task_4_complete }}
+            {{ form.csrf_token }}
             {{ render_yes_no_footer() }}
         </form>
     </div>
@@ -41,3 +81,19 @@
 </main>
 </body>
 </html>
+
+<script>
+
+    function clickBack() {
+        document.getElementById('external-form').submit();
+    }
+
+    function deactivateNextButton() {
+        document.getElementById('start-yes-button').classList.add('yes-no__button--yes-disabled')
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        deactivateNextButton();
+    });
+
+</script>

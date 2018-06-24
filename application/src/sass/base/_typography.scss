@@ -34,17 +34,12 @@
 	font-size: 3.5rem;
 	text-transform: uppercase;
 	font-weight: 700;
-	background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+	background: $color-black;
 	display: inline-block;
 	-webkit-background-clip: text;
 	color: transparent;
 	transition: all .2s;
 	letter-spacing: 2px;
-
-	&:hover {
-		transform: skewY(2deg);
-		text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
-	}
 }
 
 .heading-tertiary {

@@ -1,13 +1,13 @@
-.animal-swipe-choice {
-    position: absolute;
+.swipe-choice {
+    position: relative;
     text-align: center;
 	height: $swipe-card-height;
     width: $swipe-card-width;
     object-fit: cover;
-    //background-color: #fff;
     border-radius: 1rem;
     border: .5rem solid $color-black;
-    padding: 6rem 1rem 3rem 1rem;
+    padding: 0;
+    margin: 1rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -19,13 +19,10 @@
 
 .swipe-icon {
   position: relative;
-  	height: $swipe-card-height;
+  height: $swipe-card-height;
 }
 
 .swipe-icons {
   margin: 0;
-}
-
-.animal-button__radio-button {
-  display: none;
+  height: $swipe-card-height;
 }

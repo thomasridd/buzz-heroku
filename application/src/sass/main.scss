@@ -7,12 +7,8 @@
 @import "base/typography";
 @import "base/utilities";
 
-@import "components/icon-button";
-@import "components/animal-confirm";
+@import "components/whole-screen-image";
 @import "components/button";
-@import "components/participant-button";
-@import "components/task-button";
-@import "components/tree-button";
 @import "components/yes-no";
 
 @import "layout/footer";
@@ -23,4 +19,5 @@
 @import "pages/list-page";
 @import "pages/icon-task";
 @import "pages/swipe-task";
+@import "pages/task-list";
 @import "pages/tree-task";
