@@ -5,8 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css"
+          integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
+          integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/icon-font.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -15,32 +18,32 @@
     <title>Litter bug</title>
 </head>
 <body>
-    <header>
-        <div class="header-bar heading-tertiary">
-            Litter bug
-        </div>
-    </header>
-    <main>
-        <div class="litter-bug">
-            <div class="section-tasks">
-                <div class="row">
-                    <form id="task-form" action="{{ url_for('root.tasks') }}" method='post' class="section-tasks__form">
-                        {{ form.csrf_token }}
-                        {{ form.participant }}
-                        {{ form.task_1_complete }}
-                        {{ form.task_2_complete }}
-                        {{ form.task_3_complete }}
-                        {{ form.task_4_complete }}
+<header>
+    <div class="header-bar heading-tertiary">
+        Litter bug
+    </div>
+</header>
+<main>
+    <div class="litter-bug">
+        <div class="section-tasks">
+            <div class="row">
+                <form id="task-form" action="{{ url_for('root.tasks') }}" method='post' class="section-tasks__form">
+                    {{ form.csrf_token }}
+                    {{ form.participant }}
+                    {{ form.task_1_complete }}
+                    {{ form.task_2_complete }}
+                    {{ form.task_3_complete }}
+                    {{ form.task_4_complete }}
 
-                        {{ render_task_list(form.task, task_order) }}
+                    {{ render_task_list(form.task, task_order) }}
 
-                        {{ render_yes_no_footer() }}
-                    </form>
-                </div>
+                    {{ render_yes_no_footer() }}
+                </form>
             </div>
-
         </div>
-    </main>
+
+    </div>
+</main>
 </body>
 </html>
 

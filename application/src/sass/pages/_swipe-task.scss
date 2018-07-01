@@ -15,6 +15,10 @@
     &__image {
       width: 100%;
     }
+
+    &--selected {
+          border: .7rem solid $color-confirm;
+    }
 }
 
 .swipe-icon {

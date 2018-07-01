@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css"
+          integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
+          integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -56,12 +60,12 @@
                         <div class="col">
                             <div id="start-yes-button" class="yes-no__button yes-no__button--yes"
                                  onclick="clickStart()">
-                                Next
+                                <span class="fas fa-check"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div id="start-no-button" class="yes-no__button yes-no__button--no" onclick="clickBack()">
-                                Exit
+                                <span class="fas fa-times"></span>
                             </div>
                         </div>
                     </div>
@@ -125,12 +129,12 @@
                         <div class="col">
                             <div id="task-yes-button" class="yes-no__button yes-no__button--yes"
                                  onclick="clickItemYes()">
-                                Yes
+                                <span class="fas fa-check"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div id="task-no-button" class="yes-no__button yes-no__button--no" onclick="clickItemNo()">
-                                No
+                                <span class="fas fa-times"></span>
                             </div>
                         </div>
                     </div>
@@ -163,12 +167,12 @@
                     <div class="row">
                         <div class="col">
                             <div class="yes-no__button yes-no__button--yes" onclick="clickConfirmYes()">
-                                Yes
+                                <span class="fas fa-check"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="yes-no__button yes-no__button--no" onclick="clickConfirmNo()">
-                                No
+                                <span class="fas fa-times"></span>
                             </div>
                         </div>
                     </div>

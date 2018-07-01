@@ -520,7 +520,7 @@ body {
 .icon {
   height: 100%;
   width: 100%;
-  max-width: 8rem;
+  max-width: 10rem;
   object-fit: cover;
   background-color: #fff;
   border-width: 1px;
@@ -577,6 +577,8 @@ body {
   background-color: white; }
   .swipe-choice__image {
     width: 100%; }
+  .swipe-choice--selected {
+    border: 0.7rem solid #55c57a; }
 
 .swipe-icon {
   position: relative;
@@ -657,7 +659,7 @@ body {
 .submenu-item {
   height: 100%;
   width: 100%;
-  max-width: 8rem;
+  max-width: 10rem;
   object-fit: cover;
   background-color: #fff;
   border-radius: 2px;
@@ -677,7 +679,8 @@ body {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
   .submenu-item__branch {
     border: solid 5px #000;
-    margin-right: 0px; }
+    margin-right: 0px;
+    transform: scale(1.2); }
   .submenu-item__leaf--selected {
     border: solid 5px #55c57a;
     transform: translateY(-0.1rem);
