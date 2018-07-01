@@ -74,7 +74,7 @@ def icon_menu():
 
     if request.method == 'GET':
         form = TaskForm(request.values)
-        return render_template('tasks/icon_menu.html', form=form, rows=5, cols=4, icons=Config.CHOICES)
+        return render_template('tasks/icon_menu.html', form=form, rows=5, cols=3, icons=Config.CHOICES)
     else:
         form = EndTaskForm(request.values)
 

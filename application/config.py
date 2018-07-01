@@ -37,46 +37,40 @@ class Config:
         {'item': 'Banana', 'value': 'Banana', 'image': 'banana.png'},
         {'item': 'Beer can', 'value': 'Beer can', 'image': 'beercan.png'},
         {'item': 'Bottle cap', 'value': 'Bottle cap', 'image': 'bottlecap.png'},
-        {'item': 'Can', 'value': 'Can', 'image': 'can.png'},
         {'item': 'Cigarette', 'value': 'Cigarette', 'image': 'cigarette.png'},
         {'item': 'Coke', 'value': 'Coke', 'image': 'coke.png'},
         {'item': 'Costa', 'value': 'Costa', 'image': 'costa.png'},
-        {'item': 'Drink carton', 'value': 'Drink carton', 'image': 'drinkcarton.png'},
-        {'item': 'Drinks cup', 'value': 'Drinks cup', 'image': 'drinkscup.png'},
+        {'item': 'Crisp packet', 'value': 'Crisp packet', 'image': 'crisppacket.png'},
         {'item': 'Food', 'value': 'Food', 'image': 'food.png'},
-        {'item': 'Glass', 'value': 'Glass', 'image': 'glass.png'},
+        {'item': 'Juice carton', 'value': 'Juice carton', 'image': 'juicecarton.png'},
         {'item': 'McDonalds', 'value': 'McDonalds', 'image': 'mcdonalds.png'},
-        {'item': 'Paper', 'value': 'Paper', 'image': 'paper.png'},
-        {'item': 'Plastic', 'value': 'Plastic', 'image': 'plastic.png'},
         {'item': 'Plastic bag', 'value': 'Plastic bag', 'image': 'plasticbag.png'},
+        {'item': 'Plastic bottle', 'value': 'Plastic bottle', 'image': 'plasticbottle.png'},
         {'item': 'Redbull', 'value': 'Redbull', 'image': 'redbull.png'},
         {'item': 'Starbucks', 'value': 'Starbucks', 'image': 'starbucks.png'},
         {'item': 'Straw', 'value': 'Straw', 'image': 'straw.png'},
-        {'item': 'Straw wrapper', 'value': 'Straw wrapper', 'image': 'strawwrapper.png'},
-        {'item': 'Styrofoam', 'value': 'Styrofoam', 'image': 'styrofoam.png'}
     ]
 
     TREE = [
-        {'item': 'Plastic', 'value': 'Plastic', 'image': 'plastic.png', 'subitems': [
-            {'item': 'Bottle cap', 'value': 'Bottle cap', 'image': 'bottlecap.png'},
-            {'item': 'Styrofoam', 'value': 'Styrofoam', 'image': 'styrofoam.png'},
+        {'item': 'Recyclable', 'value': 'Recyclable', 'image': 'recyclable.png', 'subitems': [
+            {'item': 'Plastic bottle', 'value': 'Plastic bottle', 'image': 'plasticbottle.png'},
             {'item': 'Plastic bag', 'value': 'Plastic bag', 'image': 'plasticbag.png'},
-            {'item': 'Straw wrapper', 'value': 'Straw wrapper', 'image': 'strawwrapper.png'},
-            {'item': 'Straw', 'value': 'Straw', 'image': 'straw.png'}]},
-        {'item': 'Cigarette', 'value': 'Cigarette', 'image': 'cigarette.png'},
-        {'item': 'Paper', 'value': 'Paper', 'image': 'paper.png'},
-        {'item': 'Can', 'value': 'Can', 'image': 'can.png', 'subitems': [
+            {'item': 'Straw', 'value': 'Straw', 'image': 'straw.png'},
+            {'item': 'Bottle cap', 'value': 'Bottle cap', 'image': 'bottlecap.png'},
+            {'item': 'Juice carton', 'value': 'Juice carton', 'image': 'juicecarton.png'},
+            {'item': 'Starbucks', 'value': 'Starbucks', 'image': 'starbucks.png'},
+            {'item': 'Costa', 'value': 'Costa', 'image': 'costa.png'},
             {'item': 'Redbull', 'value': 'Redbull', 'image': 'redbull.png'},
             {'item': 'Coke', 'value': 'Coke', 'image': 'coke.png'},
-            {'item': 'Beer can', 'value': 'Beer can', 'image': 'beercan.png'}]},
-        {'item': 'Glass', 'value': 'Glass', 'image': 'glass.png'},
-        {'item': 'Food', 'value': 'Food', 'image': 'food.png', 'subitems': [
+            {'item': 'Beer can', 'value': 'Beer can', 'image': 'beercan.png'},
+        ]},
+        {'item': 'Non-recyclable', 'value': 'Non-recyclable', 'image': 'nonrecyclable.png', 'subitems': [
+            {'item': 'Cigarette', 'value': 'Cigarette', 'image': 'cigarette.png'},
+            {'item': 'Food', 'value': 'Food', 'image': 'food.png'},
+            {'item': 'Crisp packet', 'value': 'Crisp packet', 'image': 'crisppacket.png'},
             {'item': 'McDonalds', 'value': 'McDonalds', 'image': 'mcdonalds.png'},
-            {'item': 'Banana', 'value': 'Banana', 'image': 'banana.png'}]},
-        {'item': 'Drink carton', 'value': 'Drink carton', 'image': 'drinkcarton.png', 'subitems': [
-            {'item': 'Drinks cup', 'value': 'Drinks cup', 'image': 'drinkscup.png'},
-            {'item': 'Starbucks', 'value': 'Starbucks', 'image': 'starbucks.png'},
-            {'item': 'Costa', 'value': 'Costa', 'image': 'costa.png'}]}
+            {'item': 'Banana', 'value': 'Banana', 'image': 'banana.png'},
+        ]},
     ]
 
 

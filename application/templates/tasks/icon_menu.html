@@ -77,7 +77,7 @@
                         <div class="row">
                             {% for col in range(cols) %}
                                 <div class="col icon-col">
-                                    {% set icon = icons[col + 4*row] -%}
+                                    {% set icon = icons[col + cols*row] -%}
                                     {% set image_url = url_for('static', filename="images/icons/" + icon['image']) -%}
 
                                     <div class="icon" id="{{ icon['item'] }}"
