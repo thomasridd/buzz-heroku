@@ -34,6 +34,7 @@ class GoogleService:
 
     def next_available_row(self, worksheet):
         str_list = worksheet.col_values(1)  # fastest
-        return len(str_list)+1
+        return len(str_list) + 1
+
 
 google_service = GoogleService()

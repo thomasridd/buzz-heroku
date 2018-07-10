@@ -1,8 +1,40 @@
+from datetime import datetime
+
 from flask import render_template, request, url_for, redirect
+from application.services.google_service import google_service
 
 from application.config import Config
 from application.root import root_blueprint
 from application.root.forms import ParticipantForm, TaskListForm, TaskForm, EndTaskForm
+
+
+@root_blueprint.route('/record-event')
+def record_event():
+    if request.method == 'GET':
+        try:
+            participant = request.values['participant']
+            task = request.values['amp;task']
+            action = request.values['amp;action']
+            value = request.values['amp;value']
+        except:
+            participant = 'error'
+            task = ''
+            action = ''
+            value = ''
+
+        write_to_google(participant, task, action, value)
+
+    return 'recorded'
+
+def write_to_google(participant, task, action, value):
+
+    now = datetime.now()
+    date_str = now.strftime('%d-%m-%Y')
+    time_str = now.strftime('%H:%M:%S')
+    seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
+    cells = [date_str, time_str, participant, task, action, value, seconds_since_midnight]
+
+    google_service.add_row(cells)
 
 
 @root_blueprint.route('/', methods=['GET', 'POST'])

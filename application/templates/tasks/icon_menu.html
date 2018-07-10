@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css"
+          integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
+          integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -37,7 +39,8 @@
                         This is a the start page for the one icon menu
                     </div>
                     <div class="paragraph">
-                        A task cycles through three pages - start, pick and confirm until you click exit on the start page
+                        A task cycles through three pages - start, pick and confirm until you click exit on the start
+                        page
                     </div>
                     <div class="paragraph">
                         Tap <strong>Next</strong> to classify more litter
@@ -183,6 +186,10 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script>
+    var participant = getUrlParameter('participant');
+    var task = 'Icon menu';
+    postEventToGoogle(participant, task, 'Began task Icon menu', '');
+
     var selected_icon = "";
     var icons = {{ icons|safe}};
     var root_url = '{{ url_for('static', filename="images/icons") }}'
@@ -197,6 +204,7 @@
     };
 
     function clickStart() {
+        postEventToGoogle(participant, task, 'start', '');
         $('#section-start').hide();
         $('#section-play').show();
     }
@@ -230,6 +238,8 @@
     }
 
     function clickConfirmYes() {
+        postEventToGoogle(participant, task, 'confirm', selected_icon);
+
         deselectAllIcons();
         selected_icon = "";
         deactivateTaskYesButton();
@@ -241,19 +251,6 @@
     function clickConfirmNo() {
         $('#section-confirm').hide();
         $('#section-play').show();
-    }
-
-    function sendClickToServer(animal) {
-        {#var registerAnimalUrl = "{{ url_for('version_1.register_click', animal='ANIMAL_TO_REGISTER') }}";#}
-        {#var url = registerAnimalUrl.replace(/ANIMAL_TO_REGISTER/, animal);#}
-        {##}
-        {#        console.log(url);#}
-        {#        $.ajax({#}
-        {#            type: "POST",#}
-        {#            url: url,#}
-        {#            context: document.body,#}
-        {#            success: function(){}#}
-        {#        });#}
     }
 
     function deselectAllIcons() {
@@ -281,6 +278,40 @@
     document.addEventListener("DOMContentLoaded", function (event) {
         deactivateTaskYesButton();
     });
+
+
+    function postEventToGoogle(participant, task, action, value) {
+        console.log(participant, task, action, value);
+
+        var url = "{{ url_for('root.record_event', participant='PARTICIPANT_PLACEHOLDER', task='TASK_PLACEHOLDER', action='ACTION_PLACEHOLDER', value='VALUE_PLACEHOLDER') }}";
+        url = url.replace('PARTICIPANT_PLACEHOLDER', participant);
+        url = url.replace('TASK_PLACEHOLDER', task);
+        url = url.replace('ACTION_PLACEHOLDER', action);
+        url = url.replace('VALUE_PLACEHOLDER', value);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function () {
+                console.log('logged to googledoc')
+            }
+        });
+    }
+
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
 
 
 </script>

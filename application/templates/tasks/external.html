@@ -86,8 +86,20 @@
 </main>
 </body>
 </html>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 <script>
+    var participant = getUrlParameter('participant');
+    task = 'external';
+
 
     function clickBack() {
         document.getElementById('external-form').submit();
@@ -99,6 +111,41 @@
 
     document.addEventListener("DOMContentLoaded", function (event) {
         deactivateNextButton();
+        postEventToGoogle(participant, task, 'Began task External', '')
     });
+
+    function postEventToGoogle(participant, task, action, value) {
+        console.log(participant, task, action, value);
+
+        var url = "{{ url_for('root.record_event', participant='PARTICIPANT_PLACEHOLDER', task='TASK_PLACEHOLDER', action='ACTION_PLACEHOLDER', value='VALUE_PLACEHOLDER') }}";
+        url = url.replace('PARTICIPANT_PLACEHOLDER', participant);
+        url = url.replace('TASK_PLACEHOLDER', task);
+        url = url.replace('ACTION_PLACEHOLDER', action);
+        url = url.replace('VALUE_PLACEHOLDER', value);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function () {
+                console.log('logged to googledoc')
+            }
+        });
+    }
+
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
 
 </script>
